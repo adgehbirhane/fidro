@@ -5,70 +5,26 @@ import { motion } from "framer-motion"
 import { Check, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { pricingTiers, pricingHeader } from "@/content/pricing"
+import Link from "next/link"
 
-const tiers = [
-  {
-    name: "Starter",
-    id: "tier-starter",
-    priceMonthly: "$49",
-    priceYearly: "$39",
-    description: "Perfect for small gyms and studios just getting started.",
-    features: [
-      "Up to 100 members",
-      "Basic member management",
-      "Automated billing (1 currency)",
-      "Standard attendance tracking",
-      "Email support",
-    ],
-    mostPopular: false,
-  },
-  {
-    name: "Professional",
-    id: "tier-professional",
-    priceMonthly: "$99",
-    priceYearly: "$79",
-    description: "Advanced features for growing fitness centers.",
-    features: [
-      "Up to 1,000 members",
-      "Advanced member analytics",
-      "Automated billing (Multi-currency)",
-      "QR & RFID attendance",
-      "Priority email & chat support",
-      "Marketing automation",
-    ],
-    mostPopular: true,
-  },
-  {
-    name: "Enterprise",
-    id: "tier-enterprise",
-    priceMonthly: "$199",
-    priceYearly: "$159",
-    description: "Full-scale solution for multi-location health clubs.",
-    features: [
-      "Unlimited members",
-      "Multi-location management",
-      "Full API access",
-      "Biometric attendance",
-      "Dedicated account manager",
-      "Custom reporting",
-      "White-label options",
-    ],
-    mostPopular: false,
-  },
-]
-
-export function Pricing() {
+export function PricingPreview() {
   const [billingCycle, setBillingCycle] = React.useState<"monthly" | "yearly">("monthly")
 
   return (
     <section id="pricing" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            Simple, <span className="text-primary">transparent</span> pricing
+            {pricingHeader.title.split("transparent").map((part, i) => (
+              <React.Fragment key={i}>
+                {part}
+                {i === 0 && <span className="text-primary">transparent</span>}
+              </React.Fragment>
+            ))}
           </h2>
           <p className="text-xl text-muted-foreground">
-            Choose the plan that best fits your business. No hidden fees, ever.
+            {pricingHeader.description}
           </p>
 
           <div className="flex items-center justify-center mt-8">
@@ -116,7 +72,7 @@ export function Pricing() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-          {tiers.map((tier) => (
+          {pricingTiers.map((tier) => (
             <div
               key={tier.id}
               className={cn(
@@ -147,7 +103,7 @@ export function Pricing() {
               </div>
 
               <div className="flex-1 space-y-4 mb-8">
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">WHAT'S INCLUDED</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">WHAT&apos;S INCLUDED</p>
                 <ul className="space-y-4">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start text-sm">
@@ -160,15 +116,17 @@ export function Pricing() {
                 </ul>
               </div>
 
-              <Button
-                variant={tier.mostPopular ? "default" : "outline"}
-                className={cn(
-                  "w-full h-12 text-sm font-bold rounded-xl",
-                  tier.mostPopular ? "shadow-lg shadow-primary/25" : ""
-                )}
-              >
-                Get Started with {tier.name}
-              </Button>
+              <Link href="/contact">
+                <Button
+                  variant={tier.mostPopular ? "default" : "outline"}
+                  className={cn(
+                    "w-full h-12 text-sm font-bold rounded-xl",
+                    tier.mostPopular ? "shadow-lg shadow-primary/25" : ""
+                  )}
+                >
+                  Get Started with {tier.name}
+                </Button>
+              </Link>
 
               <div className="mt-6 flex items-center justify-center space-x-2 text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                 <Info className="h-3 w-3" />
@@ -185,8 +143,16 @@ export function Pricing() {
                 For large multi-location networks or custom feature requirements, our enterprise team can build a tailored solution for your business.
              </p>
              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button variant="outline" size="lg" className="h-14 px-8 text-base font-bold">Contact Sales</Button>
-                <Button size="lg" className="h-14 px-8 text-base font-bold">Request Enterprise Demo</Button>
+                <Link href="/contact">
+                  <Button variant="outline" size="lg" className="h-14 px-8 text-base font-bold group">
+                    Contact Sales
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button size="lg" className="h-14 px-8 text-base font-bold group">
+                    Request Enterprise Demo
+                  </Button>
+                </Link>
              </div>
           </div>
           {/* Background decoration */}

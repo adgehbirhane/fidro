@@ -1,36 +1,22 @@
+import React from "react"
 import { Star, Quote } from "lucide-react"
-
-const testimonials = [
-  {
-    name: "John Carter",
-    role: "Owner, Iron & Grit Fitness",
-    content: "Fidro has completely transformed how we handle our member billing. What used to take days of manual tracking now happens automatically. Our revenue is up by 15% in just 3 months.",
-    rating: 5,
-  },
-  {
-    name: "Sarah Miller",
-    role: "Manager, Pure Zen Yoga",
-    content: "The attendance tracking feature is a game-changer for our studio. Members love the QR code check-in, and we finally have clear data on our peak hours and popular classes.",
-    rating: 5,
-  },
-  {
-    name: "Marcus Davies",
-    role: "Founder, Peak Performance Centers",
-    content: "Scaling to our fourth location was seamless with Fidro's multi-location dashboard. The insights we get from the analytics are invaluable for our strategic decisions.",
-    rating: 5,
-  },
-]
+import { testimonials, testimonialsHeader } from "@/content/testimonials"
 
 export function Testimonials() {
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            Trusted by <span className="text-primary">fitness leaders</span>
+            {testimonialsHeader.title.split("fitness leaders").map((part, i) => (
+              <React.Fragment key={i}>
+                {part}
+                {i === 0 && <span className="text-primary">fitness leaders</span>}
+              </React.Fragment>
+            ))}
           </h2>
           <p className="text-xl text-muted-foreground">
-            See how Fidro is helping gym owners and fitness managers grow their businesses with less effort.
+            {testimonialsHeader.description}
           </p>
         </div>
 
@@ -49,7 +35,7 @@ export function Testimonials() {
                 <div className="relative">
                   <Quote className="absolute -top-4 -left-4 h-12 w-12 text-primary/10 -z-0" />
                   <p className="text-lg text-foreground italic relative z-10 leading-relaxed">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </p>
                 </div>
               </div>

@@ -1,43 +1,21 @@
-import { Dumbbell, Activity, Users, Trophy, Building2 } from "lucide-react"
-
-const industries = [
-  {
-    name: "Fitness Centers",
-    description: "End-to-end member lifecycle management from lead capture to long-term retention.",
-    icon: Activity,
-  },
-  {
-    name: "Boutique Gyms",
-    description: "Streamlined equipment scheduling, class management, and automated member billing.",
-    icon: Dumbbell,
-  },
-  {
-    name: "Health Clubs",
-    description: "Premium member experiences with advanced access control and integrated wellness tracking.",
-    icon: Building2,
-  },
-  {
-    name: "Personal Training",
-    description: "Client-focused management, session scheduling, and transparent payment processing.",
-    icon: Users,
-  },
-  {
-    name: "Multi-location Groups",
-    description: "Centralized operations and analytics across multiple sites with global reporting.",
-    icon: Trophy,
-  },
-]
+import React from "react"
+import { industries, industriesHeader } from "@/content/features"
 
 export function Industries() {
   return (
     <section id="industries" className="py-24 bg-muted/30 relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            Tailored for your <span className="text-primary">fitness niche</span>
+            {industriesHeader.title.split("fitness niche").map((part, i) => (
+              <React.Fragment key={i}>
+                {part}
+                {i === 0 && <span className="text-primary">fitness niche</span>}
+              </React.Fragment>
+            ))}
           </h2>
           <p className="text-xl text-muted-foreground">
-            Whether you run a local boutique studio or a global health club network, Fidro scales with your ambition.
+            {industriesHeader.description}
           </p>
         </div>
 
@@ -63,7 +41,7 @@ export function Industries() {
              </div>
              <h3 className="text-xl font-bold text-foreground">Your Industry?</h3>
              <p className="text-muted-foreground text-sm">
-                Don't see your specific fitness business here? We likely support it. Let's talk.
+                Don&apos;t see your specific fitness business here? We likely support it. Let&apos;s talk.
              </p>
           </div>
         </div>

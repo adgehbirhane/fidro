@@ -4,8 +4,9 @@ import * as React from "react"
 import { motion } from "framer-motion"
 import { Mail, Phone, MessageSquare, Send, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { contactData } from "@/lib/constants"
 
-export function Contact() {
+export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -17,15 +18,20 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-                Ready to <span className="text-primary">elevate</span> your business?
+                {contactData.title.split("elevate").map((part, i) => (
+                  <React.Fragment key={i}>
+                    {part}
+                    {i === 0 && <span className="text-primary">elevate</span>}
+                  </React.Fragment>
+                ))}
               </h2>
               <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-                Book a personalized demo or reach out to our sales team to find the perfect solution for your fitness business.
+                {contactData.description}
               </p>
             </div>
 
@@ -36,7 +42,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground">Email Us</h4>
-                  <p className="text-sm text-muted-foreground">sales@fidro.com</p>
+                  <p className="text-sm text-muted-foreground">{contactData.email}</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 p-4 rounded-2xl bg-muted/30 border border-muted group hover:border-primary/50 transition-colors">
@@ -45,7 +51,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground">Call Us</h4>
-                  <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                  <p className="text-sm text-muted-foreground">{contactData.phone}</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4 p-4 rounded-2xl bg-muted/30 border border-muted group hover:border-primary/50 transition-colors">
@@ -54,7 +60,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground">Live Chat</h4>
-                  <p className="text-sm text-muted-foreground">Available 24/7</p>
+                  <p className="text-sm text-muted-foreground">{contactData.chat}</p>
                 </div>
               </div>
             </div>

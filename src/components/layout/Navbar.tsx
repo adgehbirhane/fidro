@@ -5,15 +5,9 @@ import Link from "next/link"
 import { Menu, X, Dumbbell } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { navItems } from "@/lib/constants"
 
-const navItems = [
-  { name: "Features", href: "#features" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "Industries", href: "#industries" },
-  { name: "About", href: "#about" },
-]
-
-export function Header() {
+export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
 
@@ -34,13 +28,16 @@ export function Header() {
           : "bg-transparent py-4"
       )}
     >
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container">
         <nav className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
             <div className="bg-primary p-1.5 rounded-lg">
               <Dumbbell className="h-6 w-6 text-primary-foreground" />
             </div>
-            <span className="text-2xl font-bold tracking-tight text-foreground">
+            <span className={cn(
+              "text-2xl font-bold tracking-tight transition-colors",
+              scrolled ? "text-foreground" : "text-white"
+            )}>
               Fidro
             </span>
           </Link>
@@ -51,17 +48,34 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                className={cn(
+                  "text-sm font-medium transition-colors",
+                  scrolled 
+                    ? "text-muted-foreground hover:text-primary" 
+                    : "text-white/80 hover:text-white"
+                )}
               >
                 {item.name}
               </Link>
             ))}
-            <Button size="sm">Request Demo</Button>
+            <Button 
+              size="sm" 
+              className={cn(
+                scrolled 
+                  ? "bg-primary hover:bg-primary/90" 
+                  : "bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30"
+              )}
+            >
+              Request Demo
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-foreground"
+            className={cn(
+              "md:hidden p-2 transition-colors",
+              scrolled ? "text-foreground" : "text-white"
+            )}
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

@@ -1,40 +1,11 @@
 import Link from "next/link"
-import { Dumbbell, Github, Linkedin, Twitter, Mail } from "lucide-react"
-
-const footerSections = [
-  {
-    title: "Product",
-    links: [
-      { name: "Features", href: "#features" },
-      { name: "Pricing", href: "#pricing" },
-      { name: "API Docs", href: "#" },
-      { name: "Integrations", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { name: "About Us", href: "#about" },
-      { name: "Success Stories", href: "#" },
-      { name: "Blog", href: "#" },
-      { name: "Contact", href: "#contact" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { name: "Help Center", href: "#" },
-      { name: "Documentation", href: "#" },
-      { name: "Status", href: "#" },
-      { name: "Terms", href: "#" },
-    ],
-  },
-]
+import { Dumbbell } from "lucide-react"
+import { footerSections } from "@/lib/constants"
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t py-16">
-      <div className="container mx-auto px-4 md:px-6">
+    <footer className="bg-background border-t py-16 px-6 md:px-12 lg:px-24">
+      <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
@@ -50,26 +21,6 @@ export function Footer() {
               designed to streamline operations, boost member engagement, and
               maximize revenue.
             </p>
-            <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Github className="h-5 w-5" />
-              </Link>
-            </div>
           </div>
 
           {footerSections.map((section) => (
