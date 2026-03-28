@@ -68,6 +68,7 @@ export function Navbar() {
             ))}
             <Link href="/contact">
               <CustomButton 
+                withArrow
                 size="sm" 
                 variant={scrolled ? "default" : isLightPage ? "default" : "outline"}
                 className={cn(

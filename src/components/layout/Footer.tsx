@@ -1,11 +1,12 @@
 import Link from "next/link"
-import { Dumbbell, Mail, Phone, MapPin, Twitter, Facebook, Linkedin, Instagram } from "lucide-react"
+import { Dumbbell, Mail, Phone, MapPin } from "lucide-react"
+import SocialMedia from "../shared/social-media"
 
 export function Footer() {
   return (
     <footer className="bg-background border-t py-16 px-6 md:px-12 lg:px-24">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           {/* Brand Section */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
@@ -34,7 +35,7 @@ export function Footer() {
                   href="/#features"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Features
+                  Platform Features
                 </Link>
               </li>
               <li>
@@ -42,7 +43,7 @@ export function Footer() {
                   href="/#pricing"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Pricing
+                  Pricing Plans
                 </Link>
               </li>
               <li>
@@ -50,7 +51,7 @@ export function Footer() {
                   href="/blogs"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Blogs
+                  Blog & Insights
                 </Link>
               </li>
             </ul>
@@ -67,7 +68,7 @@ export function Footer() {
                   href="/#about"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  About Us
+                  About Our Company
                 </Link>
               </li>
               <li>
@@ -75,7 +76,7 @@ export function Footer() {
                   href="/contact"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Contact
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -84,7 +85,7 @@ export function Footer() {
           {/* Get in Touch Section */}
           <div className="space-y-4">
             <h4 className="text-sm font-bold uppercase tracking-wider text-foreground">
-              Get in Touch
+              Contact Us
             </h4>
             <div className="space-y-3">
               <a 
@@ -103,52 +104,16 @@ export function Footer() {
                 <span>Addis Ababa, Ethiopia</span>
               </div>
             </div>
-            
-            {/* Social Media Links */}
-            <div className="pt-4 border-t border-border/50">
-              <p className="text-xs font-semibold text-muted-foreground mb-3">Follow Us</p>
-              <div className="flex space-x-3">
-                <a
-                  href="https://twitter.com/fidro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Follow Fidro on Twitter"
-                >
-                  <Twitter className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://facebook.com/fidro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Follow Fidro on Facebook"
-                >
-                  <Facebook className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://linkedin.com/company/fidro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Follow Fidro on LinkedIn"
-                >
-                  <Linkedin className="h-4 w-4" />
-                </a>
-                <a
-                  href="https://instagram.com/fidro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                  aria-label="Follow Fidro on Instagram"
-                >
-                  <Instagram className="h-4 w-4" />
-                </a>
-              </div>
-            </div>
+          </div>
+
+          {/* Social Media Section */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-foreground">
+              Follow Us
+            </h4>
+            <SocialMedia />
           </div>
         </div>
-
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0">
           <p className="text-sm text-muted-foreground">

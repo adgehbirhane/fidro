@@ -37,7 +37,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 8,
     date: "March 28, 2026",
     author: {
-      name: "Sarah Mitchell",
+      name: "B2H",
       avatar: "/blog/images/author-avatar.svg",
       role: "Operations Expert"
     },
@@ -111,14 +111,14 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "boosting-member-retention-strategies",
     title: "Top 10 Strategies for Boosting Member Retention",
-    category: "Member Management",
+    category: "Member Mgt",
     featured: true,
     image: "/blog/images/boosting-member-retention.jpg",
     excerpt: "Retention is the new acquisition. Discover proven strategies that top-performing gyms use to keep members engaged, motivated, and loyal long-term. Transform your retention rates with these data-backed approaches.",
     readTime: 9,
     date: "March 21, 2026",
     author: {
-      name: "Michael Chen",
+      name: "B2H",
       avatar: "/blog/images/author-avatar.svg",
       role: "Member Retention Specialist"
     },
@@ -185,7 +185,7 @@ export const blogPosts: BlogPost[] = [
     readTime: 11,
     date: "March 14, 2026",
     author: {
-      name: "Dr. Alex Rivera",
+      name: "B2H",
       avatar: "/blog/images/author-avatar.svg",
       role: "Fitness Technology Analyst"
     },

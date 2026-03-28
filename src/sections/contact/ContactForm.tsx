@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import SocialMedia from "@/components/shared/social-media"
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
@@ -122,7 +123,7 @@ export function ContactForm() {
                     </a>
                     <p className="text-sm text-muted-foreground flex items-center gap-2">
                       <Clock className="h-3 w-3" />
-                      Mon-Fri, 8am - 6pm
+                      Available 24/7
                     </p>
                   </div>
                 </div>
@@ -133,11 +134,9 @@ export function ContactForm() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-medium text-foreground text-base mb-1">Live Chat</p>
-                    <p className="text-primary font-medium text-lg mb-1 break-words">{contactData.chat}</p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2">
-                      <Clock className="h-3 w-3" />
-                      Available 24/7
-                    </p>
+                    <div className="text-primary font-medium text-lg mb-1 break-words">
+                      <SocialMedia />
+                    </div>
                   </div>
                 </div>
               </div>
