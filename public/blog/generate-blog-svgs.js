@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Create the images directory if it doesn't exist
 const imagesDir = path.join(__dirname, 'images');

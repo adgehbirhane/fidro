@@ -1,12 +1,9 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { HelpCircle, ArrowRight, MessageCircle, Sparkles, TrendingUp } from "lucide-react"
+import { HelpCircle } from "lucide-react"
 import { faqs } from "@/content/faqs"
-import { CustomButton } from "@/components/custom-button"
-import Link from "next/link"
 
 export function FAQs() {
   return (

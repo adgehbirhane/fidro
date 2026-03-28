@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Dumbbell, Mail, Phone, MapPin, Twitter, Facebook, Linkedin, Instagram } from "lucide-react"
-import { footerSections } from "@/lib/constants"
 
 export function Footer() {
   return (

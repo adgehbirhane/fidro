@@ -3,7 +3,7 @@
 import * as React from "react"
 import { CustomButton } from "@/components/custom-button"
 import { motion } from "framer-motion"
-import { Play, ArrowRight } from "lucide-react"
+import { Play } from "lucide-react"
 import { heroData } from "@/lib/constants"
 import Link from "next/link"
 

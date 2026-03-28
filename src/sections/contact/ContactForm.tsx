@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, Phone, MessageSquare, Send, CheckCircle2, Facebook, Instagram, Linkedin, Twitter, MapPin, Sparkles, Clock, Globe } from "lucide-react"
+import { Mail, Phone, MessageSquare, CheckCircle2, MapPin, Sparkles, Clock, Globe } from "lucide-react"
 import { CustomButton } from "@/components/custom-button"
 import { contactData } from "@/lib/constants"
 import { useForm } from "react-hook-form"
@@ -25,7 +25,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),
@@ -56,30 +55,6 @@ export function ContactForm() {
     setIsSubmitted(true)
     setTimeout(() => setIsSubmitted(false), 5000)
   }
-
-  const contactMethods = [
-    {
-      icon: Mail,
-      title: "Email Us",
-      value: contactData.email,
-      description: "Response within 2 hours",
-      color: "text-primary bg-primary/5",
-    },
-    {
-      icon: Phone,
-      title: "Call Us",
-      value: contactData.phone,
-      description: "Mon-Fri, 8am - 6pm",
-      color: "text-primary bg-primary/5",
-    },
-    {
-      icon: MessageSquare,
-      title: "Live Chat",
-      value: contactData.chat,
-      description: "Available 24/7",
-      color: "text-primary bg-primary/5",
-    },
-  ]
 
   return (
     <section className="relative py-24 overflow-hidden bg-background">

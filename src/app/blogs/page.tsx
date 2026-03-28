@@ -32,8 +32,6 @@ export default function BlogPage() {
     })
   }, [searchQuery, activeFilter])
 
-  const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3)
-
   const handleFilterChange = (filter: string) => {
     setActiveFilter(filter)
   }

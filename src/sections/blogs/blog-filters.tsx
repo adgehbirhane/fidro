@@ -1,6 +1,5 @@
 import { Search, Filter } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { CustomButton } from "@/components/custom-button"
 import { blogPosts } from "@/content/blogs"
 import { useState } from "react"
 
