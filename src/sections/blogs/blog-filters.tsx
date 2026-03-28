@@ -37,7 +37,7 @@ export function BlogFilters({
           </div>
           <div className="flex justify-between items-center">
             <span className="text-sm text-muted-foreground">This Week</span>
-            <span className="text-sm font-bold text-primary">3</span>
+            <span className="text-sm font-bold text-primary">0</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-sm text-muted-foreground">Featured</span>

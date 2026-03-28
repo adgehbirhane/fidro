@@ -62,21 +62,21 @@ export function ContactForm() {
       icon: Mail,
       title: "Email Us",
       value: contactData.email,
-      description: "Response within 2 hours.",
+      description: "Response within 2 hours",
       color: "text-primary bg-primary/5",
     },
     {
       icon: Phone,
       title: "Call Us",
       value: contactData.phone,
-      description: "Mon-Fri, 8am - 6pm.",
+      description: "Mon-Fri, 8am - 6pm",
       color: "text-primary bg-primary/5",
     },
     {
       icon: MessageSquare,
       title: "Live Chat",
       value: contactData.chat,
-      description: "Available 24/7.",
+      description: "Available 24/7",
       color: "text-primary bg-primary/5",
     },
   ]
@@ -103,70 +103,116 @@ export function ContactForm() {
               </p>
             </div>
 
-            {/* Contact Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-              {contactMethods.map((method) => (
-                <div
-                  key={method.title}
-                  className="group p-6 rounded-2xl bg-card border hover:border-primary/40 transition-all duration-300 flex items-start gap-4"
-                >
-                  <div className={cn("p-4 rounded-xl", method.color)}>
-                    <method.icon className="h-6 w-6" />
+            {/* Contact Information */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <h4 className="text-lg font-semibold text-foreground">Get in Touch</h4>
+              
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex items-start gap-3">
+                  <div className="p-3 rounded-lg bg-primary/5 flex-shrink-0">
+                    <Mail className="h-5 w-5 text-primary" />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-foreground text-sm mb-1">{method.title}</h4>
-                    <p className="text-primary font-bold text-base mb-1">{method.value}</p>
-                    <p className="text-xs text-muted-foreground font-medium">{method.description}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground text-base mb-1">Email Us</p>
+                    <a 
+                      href={`mailto:${contactData.email}`}
+                      className="text-primary font-medium text-lg mb-1 break-words hover:underline transition-colors"
+                    >
+                      {contactData.email}
+                    </a>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2">
+                      <Clock className="h-3 w-3" />
+                      Response within 2 hours
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
+                
+                <div className="flex items-start gap-3">
+                  <div className="p-3 rounded-lg bg-primary/5 flex-shrink-0">
+                    <Phone className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground text-base mb-1">Call Us</p>
+                    <a 
+                      href={`tel:${contactData.phone}`}
+                      className="text-primary font-medium text-lg mb-1 break-words hover:underline transition-colors"
+                    >
+                      {contactData.phone}
+                    </a>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2">
+                      <Clock className="h-3 w-3" />
+                      Mon-Fri, 8am - 6pm
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3">
+                  <div className="p-3 rounded-lg bg-primary/5 flex-shrink-0">
+                    <MessageSquare className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground text-base mb-1">Live Chat</p>
+                    <p className="text-primary font-medium text-lg mb-1 break-words">{contactData.chat}</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2">
+                      <Clock className="h-3 w-3" />
+                      Available 24/7
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Office Info */}
-            <div className="p-8 rounded-2xl bg-muted/30 border border-muted flex flex-col sm:flex-row items-center sm:items-start gap-8">
-              <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                <MapPin className="h-8 w-8" />
-              </div>
-              <div className="space-y-4 text-center sm:text-left">
-                <h4 className="text-lg font-bold text-foreground">Our Headquarters</h4>
-                <div className="space-y-1">
-                  <p className="text-muted-foreground font-bold">Sent Marian Gurd, Shola</p>
-                  <p className="text-sm text-muted-foreground">Addis Ababa, Ethiopia</p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="space-y-4"
+            >
+              <h4 className="text-lg font-semibold text-foreground">Our Headquarters</h4>
+              
+              <div className="flex items-start gap-4">
+                <div className="p-3 rounded-lg bg-primary/5 flex-shrink-0">
+                  <MapPin className="h-5 w-5 text-primary" />
                 </div>
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs font-bold text-primary uppercase tracking-widest">
-                  <div className="flex items-center gap-1.5">
-                    <Clock className="h-3 w-3" />
-                    <span>8AM - 6PM</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Globe className="h-3 w-3" />
-                    <span>Global Support</span>
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <a 
+                      href="https://maps.google.com/?q=Sent+Marian+Gurd+Shola,Addis+Ababa,Ethiopia"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-foreground font-medium hover:text-primary hover:underline transition-colors"
+                    >
+                      Sent Marian Gurd, Shola
+                    </a>
+                                    </div>
+                  <div className="flex flex-wrap gap-4 text-sm text-primary">
+                    <div className="flex items-center gap-2">
+                      <Clock className="h-3 w-3" />
+                      <span>8AM - 6PM</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Globe className="h-3 w-3" />
+                       <a 
+                      href="https://maps.google.com/?q=Sent+Marian+Gurd+Shola,Addis+Ababa,Ethiopia"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary hover:underline transition-colors"
+                    >
+                      Addis Ababa, Ethiopia
+                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="space-y-6 pt-4">
-              <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.3em]">Follow Us</p>
-              <div className="flex flex-wrap gap-3">
-                {[
-                  { icon: Facebook, label: "Facebook" },
-                  { icon: Instagram, label: "Instagram" },
-                  { icon: Linkedin, label: "LinkedIn" },
-                  { icon: Twitter, label: "Twitter" }
-                ].map((social) => (
-                  <a
-                    key={social.label}
-                    href="#"
-                    className="w-10 h-10 rounded-xl border border-primary/20 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="h-4 w-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column: Form */}

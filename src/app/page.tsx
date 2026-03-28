@@ -2,6 +2,7 @@ import { Hero } from "@/sections/home/Hero";
 import { Features } from "@/sections/home/Features";
 import { PricingPreview } from "@/sections/home/PricingPreview";
 import { Testimonials } from "@/sections/home/Testimonials";
+import { FAQs } from "@/sections/home/FAQs";
 import { CTA } from "@/sections/home/CTA";
 import { Industries } from "@/sections/home/Industries";
 import { About } from "@/sections/home/About";
@@ -15,6 +16,7 @@ export default function Home() {
       <About />
       <PricingPreview />
       <Testimonials />
+      <FAQs />
       <CTA />
     </div>
   );

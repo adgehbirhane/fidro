@@ -9,7 +9,7 @@ export const navItems = [
   { name: "Pricing", href: "/#pricing" },
   { name: "Industries", href: "/#industries" },
   { name: "About", href: "/#about" },
-  { name: "Blog", href: "/blog" },
+  { name: "Blogs", href: "/blogs" },
 ]
 
 export const footerSections = [
@@ -18,26 +18,14 @@ export const footerSections = [
     links: [
       { name: "Features", href: "/#features" },
       { name: "Pricing", href: "/#pricing" },
-      { name: "API Docs", href: "#" },
-      { name: "Integrations", href: "#" },
+      { name: "Blogs", href: "/blogs" },
     ],
   },
   {
     title: "Company",
     links: [
       { name: "About Us", href: "/#about" },
-      { name: "Success Stories", href: "#" },
-      { name: "Blog", href: "/blog" },
       { name: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { name: "Help Center", href: "#" },
-      { name: "Documentation", href: "#" },
-      { name: "Status", href: "#" },
-      { name: "Terms", href: "#" },
     ],
   },
 ]

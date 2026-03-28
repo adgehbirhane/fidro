@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Back Navigation */}
       <div className="container mx-auto px-6 md:px-12 lg:px-24 pt-24 pb-4">
         <Link 
-          href="/blog" 
+          href="/blogs" 
           className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
         >
           <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />

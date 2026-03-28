@@ -10,7 +10,7 @@ interface BlogCardProps {
 export function BlogCard({ post }: BlogCardProps) {
   return (
     <Link 
-      href={`/blog/${post.slug}`} 
+      href={`/blogs/${post.slug}`} 
       className="group block bg-background border-0 rounded-2xl overflow-hidden hover:shadow-md transition-all duration-500 hover:-translate-y-1"
     >
       {/* Image Container */}

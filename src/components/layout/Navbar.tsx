@@ -14,7 +14,7 @@ export function Navbar() {
   const pathname = usePathname()
 
   // Pages with light backgrounds that need dark text initially
-  const lightPages = ['/blog', '/contact', '/pricing']
+  const lightPages = ['/blogs', '/contact', '/pricing']
   const isLightPage = lightPages.some(page => pathname.startsWith(page))
 
   React.useEffect(() => {
