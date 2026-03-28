@@ -39,9 +39,6 @@ export function Hero() {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <div className="inline-flex items-center justify-center space-x-2 bg-primary/20 backdrop-blur-sm border border-primary/30 px-3 py-1 rounded-full text-primary text-sm font-medium">
-              <span>The Future of Gym Management</span>
-            </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.05]">
               {heroData.title.split("Fitness Business").map((part, i) => (

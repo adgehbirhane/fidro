@@ -5,10 +5,27 @@ export const pricingHeader = {
 
 export const pricingTiers = [
   {
+    name: "One Month Free Trial",
+    id: "tier-free-trial",
+    priceMonthly: "Free",
+    price6Month: "Free",
+    priceYearly: "Free",
+    description: "Perfect for small gyms and studios just getting started.",
+    features: [
+      "Up to 100 members",
+      "Basic member management",
+      "Automated billing (1 currency)",
+      "Standard attendance tracking",
+      "Email support",
+    ],
+    mostPopular: false,
+  },
+  {
     name: "Starter",
     id: "tier-starter",
-    priceMonthly: "$49",
-    priceYearly: "$39",
+    priceMonthly: "8,999 ETB",
+    price6Month: "8,099 ETB",
+    priceYearly: "7,199 ETB",
     description: "Perfect for small gyms and studios just getting started.",
     features: [
       "Up to 100 members",
@@ -22,8 +39,9 @@ export const pricingTiers = [
   {
     name: "Professional",
     id: "tier-professional",
-    priceMonthly: "$99",
-    priceYearly: "$79",
+    priceMonthly: "9,999 ETB",
+    price6Month: "8,999 ETB",
+    priceYearly: "7,999 ETB",
     description: "Advanced features for growing fitness centers.",
     features: [
       "Up to 1,000 members",
@@ -38,8 +56,9 @@ export const pricingTiers = [
   {
     name: "Enterprise",
     id: "tier-enterprise",
-    priceMonthly: "$199",
-    priceYearly: "$159",
+    priceMonthly: "13,999 ETB",
+    price6Month: "12,599 ETB",
+    priceYearly: "11,199 ETB",
     description: "Full-scale solution for multi-location health clubs.",
     features: [
       "Unlimited members",

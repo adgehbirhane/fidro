@@ -19,11 +19,6 @@ export function CTA() {
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
-          <Link href="/contact">
-            <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-primary-foreground/20 hover:bg-primary-foreground/10 w-full sm:w-auto">
-              Book a Demo
-            </Button>
-          </Link>
         </div>
       </div>
     </section>

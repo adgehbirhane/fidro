@@ -55,19 +55,15 @@ export function Testimonials() {
         <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-12 items-center justify-center opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
            {/* Achievement/Badge Placeholders */}
            <div className="flex flex-col items-center space-y-2">
-              <div className="h-12 w-12 bg-muted rounded-full" />
               <p className="text-[10px] font-bold uppercase tracking-widest text-center">Top Rated 2024</p>
            </div>
            <div className="flex flex-col items-center space-y-2">
-              <div className="h-12 w-12 bg-muted rounded-full" />
               <p className="text-[10px] font-bold uppercase tracking-widest text-center">Security Certified</p>
            </div>
            <div className="flex flex-col items-center space-y-2">
-              <div className="h-12 w-12 bg-muted rounded-full" />
               <p className="text-[10px] font-bold uppercase tracking-widest text-center">99.9% Uptime</p>
            </div>
            <div className="flex flex-col items-center space-y-2">
-              <div className="h-12 w-12 bg-muted rounded-full" />
               <p className="text-[10px] font-bold uppercase tracking-widest text-center">Customer Choice</p>
            </div>
         </div>

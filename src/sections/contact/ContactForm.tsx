@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { Mail, Phone, MessageSquare, Send, CheckCircle2 } from "lucide-react"
+import { Mail, Phone, MessageSquare, Send, CheckCircle2, Facebook, Instagram, Linkedin, Twitter } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { contactData } from "@/lib/constants"
 
@@ -65,17 +65,57 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="pt-8 border-t">
-              <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-6">GLOBAL PRESENCE</p>
-              <div className="grid grid-cols-2 gap-8">
-                 <div>
-                    <h5 className="font-bold text-foreground">North America</h5>
-                    <p className="text-sm text-muted-foreground">New York, NY</p>
-                 </div>
-                 <div>
-                    <h5 className="font-bold text-foreground">Europe</h5>
-                    <p className="text-sm text-muted-foreground">London, UK</p>
-                 </div>
+            {/* Social Media Contacts */}
+            <div className="pt-8">
+              <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-6">CONNECT WITH US</p>
+              <div className="flex gap-4">
+                <a 
+                  href="#" 
+                  className="group flex items-center justify-center w-12 h-12 rounded-2xl bg-transparent border-2 border-teal-200 text-teal-700 hover:border-teal-600 hover:text-teal-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+                <a 
+                  href="#" 
+                  className="group flex items-center justify-center w-12 h-12 rounded-2xl bg-transparent border-2 border-teal-200 text-teal-700 hover:border-teal-600 hover:text-teal-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a 
+                  href="#" 
+                  className="group flex items-center justify-center w-12 h-12 rounded-2xl bg-transparent border-2 border-teal-200 text-teal-700 hover:border-teal-600 hover:text-teal-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <a 
+                  href="#" 
+                  className="group flex items-center justify-center w-12 h-12 rounded-2xl bg-transparent border-2 border-teal-200 text-teal-700 hover:border-teal-600 hover:text-teal-600 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+
+            <div className="pt-8">
+              <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest mb-6">VISIT OUR OFFICE</p>
+              <div className="flex items-start gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg text-primary mt-1 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Sent Marian Gurd, Shola, Addis Ababa
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Near Sent Marian Church - Modern glass building with Fidro signage
+                  </p>
+                </div>
               </div>
             </div>
           </div>

@@ -38,9 +38,9 @@ export const features = [
         { label: "Churn Rate", value: "2.1%" },
       ],
       items: [
-        { name: "Invoice #8291", amount: "$99.00", status: "Paid" },
-        { name: "Invoice #8292", amount: "$149.00", status: "Processing" },
-        { name: "Invoice #8293", amount: "$79.00", status: "Paid" },
+        { name: "Invoice #8291", amount: "99.00 ETB", status: "Paid" },
+        { name: "Invoice #8292", amount: "149.00 ETB", status: "Processing" },
+        { name: "Invoice #8293", amount: "79.00 ETB", status: "Paid" },
       ]
     }
   },

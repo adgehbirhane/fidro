@@ -51,14 +51,14 @@ export const heroData = {
     "Automated Billing",
     "Attendance Tracking",
   ],
-  trustedBy: "TRUSTED BY 500+ FITNESS CENTERS WORLDWIDE",
+  trustedBy: "TRUSTED BY 10+ FITNESS CENTERS WORLDWIDE",
 }
 
 export const contactData = {
   title: "Ready to elevate your business?",
   description: "Book a personalized demo or reach out to our sales team to find the perfect solution for your fitness business.",
-  email: "sales@fidro.com",
-  phone: "+1 (555) 123-4567",
+  email: "support@fidro.et",
+  phone: "+251 934-905008",
   chat: "Available 24/7",
 }
 

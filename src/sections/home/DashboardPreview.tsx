@@ -6,15 +6,13 @@ import {
   Users, 
   Search, 
   Bell, 
-  LayoutGrid,
   FileText,
   CreditCard,
   Settings,
   Package,
   TrendingUp,
-  ArrowLeftRight,
-  UserCircle,
-  CheckCircle2
+  CheckCircle2,
+  UserCircle
 } from "lucide-react"
 
 interface WindowProps {
@@ -207,7 +205,7 @@ export function DashboardPreview({ className }: { className?: string }) {
           <div className="flex-1 space-y-4">
             <div className="flex items-center gap-2 mb-2">
               <CheckCircle2 className="h-4 w-4 text-teal-500" />
-              <span className="text-[10px] font-black text-teal-900 uppercase">Today's Check-ins</span>
+              <span className="text-[10px] font-black text-teal-900 uppercase">Today&apos;s Check-ins</span>
             </div>
             <div className="aspect-video bg-gradient-to-br from-teal-100 to-teal-50 rounded-xl overflow-hidden relative border border-teal-200 group">
                <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent group-hover:scale-110 transition-transform duration-700" />

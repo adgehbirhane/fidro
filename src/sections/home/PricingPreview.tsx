@@ -1,15 +1,32 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
-import { Check, Info } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Check, Info, Calendar, Clock, CreditCard } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { pricingTiers, pricingHeader } from "@/content/pricing"
 import Link from "next/link"
 
 export function PricingPreview() {
-  const [billingCycle, setBillingCycle] = React.useState<"monthly" | "yearly">("monthly")
+  const [billingCycle, setBillingCycle] = React.useState<"monthly" | "6month" | "yearly">("monthly")
+  const [bubbles, setBubbles] = React.useState<Array<{ id: number; x: number; y: number; size: number }>>([])
+
+  React.useEffect(() => {
+    // Create bubbles on cycle change
+    const newBubbles = Array.from({ length: 12 }, (_, i) => ({
+      id: Date.now() + i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 60 + 20,
+    }))
+    setBubbles(newBubbles)
+
+    // Clear bubbles after animation
+    const timer = setTimeout(() => setBubbles([]), 2000)
+    return () => clearTimeout(timer)
+  }, [billingCycle])
 
   return (
     <section id="pricing" className="py-24 relative overflow-hidden">
@@ -27,59 +44,78 @@ export function PricingPreview() {
             {pricingHeader.description}
           </p>
 
-          <div className="flex items-center justify-center mt-8">
-            <div className="relative flex items-center p-1 bg-muted rounded-full">
-              <button
-                onClick={() => setBillingCycle("monthly")}
-                className={cn(
-                  "relative px-6 py-2 text-sm font-bold transition-all duration-300 rounded-full",
-                  billingCycle === "monthly" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {billingCycle === "monthly" && (
-                  <motion.div
-                    layoutId="active-billing"
-                    className="absolute inset-0 bg-primary rounded-full -z-10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                Monthly
-              </button>
-              <button
-                onClick={() => setBillingCycle("yearly")}
-                className={cn(
-                  "relative px-6 py-2 text-sm font-bold transition-all duration-300 rounded-full flex items-center space-x-2",
-                  billingCycle === "yearly" ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                {billingCycle === "yearly" && (
-                  <motion.div
-                    layoutId="active-billing"
-                    className="absolute inset-0 bg-primary rounded-full -z-10"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-                <span>Yearly</span>
-                <span className={cn(
-                  "text-[10px] px-1.5 py-0.5 rounded-full",
-                  billingCycle === "yearly" ? "bg-primary-foreground/20 text-primary-foreground" : "bg-primary/10 text-primary"
-                )}>
-                  SAVE 20%
-                </span>
-              </button>
-            </div>
+          {/* Billing Cycle Tabs */}
+          <div className="flex justify-center mt-8">
+            <Tabs value={billingCycle} onValueChange={(value) => setBillingCycle(value as "monthly" | "6month" | "yearly")} className="w-full max-w-md">
+              <TabsList className="inline-flex w-auto p-1.5 bg-background/60 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg">
+                <TabsTrigger 
+                  value="monthly" 
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                >
+                  <CreditCard className="h-4 w-4" />
+                  <span>Monthly</span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="6month" 
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                >
+                  <Clock className="h-4 w-4" />
+                  <span>6 Months</span>
+                  <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
+                    -10%
+                  </span>
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="yearly" 
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                >
+                  <Calendar className="h-4 w-4" />
+                  <span>Yearly</span>
+                  <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
+                    -20%
+                  </span>
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        {/* Bubble Animations */}
+        <AnimatePresence>
+          {bubbles.map((bubble) => (
+            <motion.div
+              key={bubble.id}
+              initial={{ opacity: 0, scale: 0, x: `${bubble.x}%`, y: `${bubble.y}%` }}
+              animate={{ 
+                opacity: [0, 0.6, 0],
+                scale: [0, 1.2, 1.5],
+                y: [`${bubble.y}%`, `${bubble.y - 20}%`]
+              }}
+              exit={{ opacity: 0, scale: 1.5 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="absolute pointer-events-none z-0"
+              style={{
+                left: `${bubble.x}%`,
+                top: `${bubble.y}%`,
+              }}
+            >
+              <div 
+                className="rounded-full bg-gradient-to-br from-primary/30 to-primary/10 blur-sm"
+                style={{ width: bubble.size, height: bubble.size }}
+              />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start relative z-10">
           {pricingTiers.map((tier) => (
             <div
               key={tier.id}
               className={cn(
                 "relative flex flex-col p-8 rounded-3xl border transition-all duration-300 hover:shadow-2xl h-full",
                 tier.mostPopular
-                  ? "bg-background border-primary shadow-xl ring-1 ring-primary scale-105 z-10"
-                  : "bg-muted/30 border-muted hover:bg-background"
+                  ? "bg-background border-primary shadow-xl ring-2 ring-primary scale-105 z-10" 
+                  : "bg-muted/30 border-muted hover:bg-background hover:border-primary/20"
               )}
             >
               {tier.mostPopular && (
@@ -90,27 +126,30 @@ export function PricingPreview() {
 
               <div className="mb-8">
                 <h3 className="text-xl font-bold text-foreground mb-2">{tier.name}</h3>
-                <p className="text-sm text-muted-foreground min-h-[40px]">{tier.description}</p>
-                <div className="mt-6 flex items-baseline">
+                <p className="text-sm text-muted-foreground min-h-[40px] line-clamp-2">{tier.description}</p>
+                <div className="mt-6 flex items-baseline gap-2">
                   <span className="text-5xl font-extrabold tracking-tight text-foreground">
-                    {billingCycle === "monthly" ? tier.priceMonthly : tier.priceYearly}
+                    {billingCycle === "monthly" ? tier.priceMonthly : billingCycle === "6month" ? tier.price6Month : tier.priceYearly}
                   </span>
-                  <span className="text-sm font-medium text-muted-foreground ml-2">/month</span>
+                  <span className="text-sm font-medium text-muted-foreground">/month</span>
                 </div>
                 {billingCycle === "yearly" && (
-                  <p className="text-xs text-primary font-bold mt-2">Billed annually</p>
+                  <p className="text-xs text-primary font-bold mt-2">Billed annually (20% off)</p>
+                )}
+                {billingCycle === "6month" && (
+                  <p className="text-xs text-primary font-bold mt-2">Billed every 6 months (10% off)</p>
                 )}
               </div>
 
               <div className="flex-1 space-y-4 mb-8">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">WHAT&apos;S INCLUDED</p>
-                <ul className="space-y-4">
+                <ul className="space-y-3">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-start text-sm">
-                      <div className="bg-primary/10 rounded-full p-1 mr-3 mt-0.5">
+                      <div className="bg-primary/10 rounded-full p-1 mr-3 mt-0.5 flex-shrink-0">
                         <Check className="h-3 w-3 text-primary" />
                       </div>
-                      <span className="text-foreground/80 leading-tight">{feature}</span>
+                      <span className="text-foreground/80 leading-relaxed">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -120,15 +159,17 @@ export function PricingPreview() {
                 <Button
                   variant={tier.mostPopular ? "default" : "outline"}
                   className={cn(
-                    "w-full h-12 text-sm font-bold rounded-xl",
-                    tier.mostPopular ? "shadow-lg shadow-primary/25" : ""
+                    "w-full h-12 text-sm font-semibold rounded-xl transition-all duration-200",
+                    tier.mostPopular 
+                      ? "shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02]" 
+                      : "hover:bg-primary hover:text-primary-foreground hover:scale-[1.02]"
                   )}
                 >
-                  Get Started with {tier.name}
+                  <span className="truncate">Get Started with {tier.name}</span>
                 </Button>
               </Link>
 
-              <div className="mt-6 flex items-center justify-center space-x-2 text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
+              <div className="mt-6 pt-6 border-t border-border/50 flex items-center justify-center space-x-2 text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
                 <Info className="h-3 w-3" />
                 <span>No credit card required</span>
               </div>

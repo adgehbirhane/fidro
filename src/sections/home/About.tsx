@@ -51,14 +51,7 @@ export function About() {
                 
                 <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur-xl rounded-3xl border border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex -space-x-3">
-                         {[1, 2, 3, 4].map(i => (
-                           <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center font-bold text-[10px] text-gray-600">
-                              USER {i}
-                           </div>
-                         ))}
-                      </div>
-                      <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Our Network</p>
+                      <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">The Future of Gym Management</p>
                    </div>
                    <p className="text-xs text-gray-900 font-bold leading-relaxed">
                       Join a global community of over <span className="text-primary">500+</span> elite fitness centers transforming their business today.
