@@ -1,32 +1,92 @@
-import Link from "next/link"
+"use client"
 
-const blogPosts = [
-  { slug: "streamlining-gym-operations", title: "How to Streamline Your Gym Operations in 2024", date: "March 20, 2024" },
-  { slug: "boosting-member-retention", title: "Top 10 Strategies for Boosting Member Retention", date: "March 15, 2024" },
-  { slug: "future-of-fitness-tech", title: "The Future of Fitness Technology: What to Expect", date: "March 10, 2024" },
-]
+import { useState, useMemo } from "react"
+import { BlogHero } from "@/sections/blogs/blog-hero"
+import { BlogCard } from "@/sections/blogs/blog-card"
+import { BlogFilters } from "@/sections/blogs/blog-filters"
+import { blogPosts } from "@/content/blogs"
 
 export default function BlogPage() {
+  const [searchQuery, setSearchQuery] = useState("")
+
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter((post) => {
+      const matchesSearch = searchQuery === "" || 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
+      
+      return matchesSearch
+    })
+  }, [searchQuery])
+
+  const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3)
+
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="bg-muted/30 py-20">
-        <div className="container mx-auto px-6 md:px-12 lg:px-24 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">Our Blog</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Insights, strategies, and news from the world of fitness and gym management.
-          </p>
-        </div>
-      </div>
-      <div className="container mx-auto px-6 md:px-12 lg:px-24 py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {blogPosts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="group p-8 rounded-3xl border bg-background hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl">
-              <p className="text-sm text-primary font-bold mb-2">{post.date}</p>
-              <h2 className="text-2xl font-bold group-hover:text-primary transition-colors mb-4">{post.title}</h2>
-              <p className="text-muted-foreground mb-6">Learn more about this topic and how it can help your fitness business succeed in the modern landscape.</p>
-              <span className="text-sm font-bold flex items-center group-hover:translate-x-1 transition-transform">Read more <span className="ml-1">→</span></span>
-            </Link>
-          ))}
+      <BlogHero />
+      
+      <div className="flex-1 bg-gradient-to-b from-background via-background to-muted/20">
+        <div className="container mx-auto px-6 md:px-12 lg:px-24 py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            {/* Sidebar Filters */}
+            <div className="lg:col-span-1">
+              <BlogFilters
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+              />
+            </div>
+            
+            {/* Main Content */}
+            <div className="lg:col-span-3 space-y-16">
+              {/* Featured Posts */}
+              {searchQuery === "" && featuredPosts.length > 0 && (
+                <div className="space-y-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-1 h-8 bg-primary rounded-full" />
+                    <h2 className="text-3xl font-black text-foreground tracking-tight">Featured Articles</h2>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {featuredPosts.map((post) => (
+                      <BlogCard key={post.slug} post={post} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* All Posts */}
+              <div className="space-y-8">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-1 h-8 bg-primary rounded-full" />
+                    <h2 className="text-3xl font-black text-foreground tracking-tight">
+                      {searchQuery !== "" ? "Search Results" : "All Articles"}
+                    </h2>
+                    {filteredPosts.length > 0 && (
+                      <span className="text-lg font-normal text-muted-foreground">
+                        ({filteredPosts.length})
+                      </span>
+                    )}
+                  </div>
+                </div>
+                
+                {filteredPosts.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredPosts.map((post) => (
+                      <BlogCard key={post.slug} post={post} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-20">
+                    <div className="w-20 h-20 rounded-2xl bg-muted/50 flex items-center justify-center mx-auto mb-6">
+                      <div className="w-10 h-10 rounded bg-muted-foreground/20" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">No articles found</h3>
+                    <p className="text-muted-foreground">Try adjusting your search terms</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

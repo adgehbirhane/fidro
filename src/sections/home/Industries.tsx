@@ -1,4 +1,6 @@
 import React from "react"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { industries, industriesHeader } from "@/content/features"
 
 export function Industries() {
@@ -23,7 +25,7 @@ export function Industries() {
           {industries.map((industry) => (
             <div
               key={industry.name}
-              className="group p-8 rounded-3xl border bg-background hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group p-8 rounded-3xl border bg-background hover:border-primary/50 transition-all duration-300 hover:shadow-sm hover:-translate-y-1"
             >
               <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
                 <industry.icon className="h-7 w-7" />
@@ -35,15 +37,26 @@ export function Industries() {
             </div>
           ))}
           
-          <div className="p-8 rounded-3xl border border-dashed border-primary/30 flex flex-col items-center justify-center text-center space-y-4 group hover:bg-primary/5 transition-all duration-300">
-             <div className="w-14 h-14 rounded-full border-2 border-dashed border-primary/50 flex items-center justify-center text-primary">
-                <span className="text-2xl font-bold">+</span>
+          <Link 
+            href="/contact"
+            className="p-8 rounded-3xl border-2 border-dashed border-primary/20 flex flex-col items-center justify-center text-center space-y-6 group hover:bg-primary/5 transition-all duration-500 hover:border-primary/40 hover:shadow-sm hover:scale-[1.02] relative overflow-hidden"
+          >
+             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+             <div className="w-16 h-16 rounded-full border-2 border-dashed border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:border-solid transition-all duration-500 relative z-10">
+                <span className="text-3xl font-bold">+</span>
              </div>
-             <h3 className="text-xl font-bold text-foreground">Your Industry?</h3>
-             <p className="text-muted-foreground text-sm">
-                Don&apos;t see your specific fitness business here? We likely support it. Let&apos;s talk.
-             </p>
-          </div>
+             <div className="space-y-2 relative z-10">
+               <h3 className="text-xl font-black text-foreground uppercase tracking-tight">Your Industry?</h3>
+               <p className="text-muted-foreground text-sm font-medium leading-relaxed max-w-[200px]">
+                  Don&apos;t see your fitness niche? Let&apos;s build it together.
+               </p>
+             </div>
+             <div className="pt-2 relative z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
+                <span className="text-primary font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2">
+                  Contact Us <ArrowRight className="h-3 w-3" />
+                </span>
+             </div>
+          </Link>
         </div>
       </div>
     </section>

@@ -28,11 +28,11 @@ interface WindowProps {
 
 const WindowFrame = ({ title, subtitle, logoText, className, zIndex, delay = 0, children }: WindowProps) => (
   <motion.div
-    initial={{ opacity: 0, y: 40, x: 20 }}
-    whileInView={{ opacity: 1, y: 0, x: 0 }}
+    initial={{ opacity: 0, y: 20, scale: 0.98 }}
+    whileInView={{ opacity: 1, y: 0, scale: 1 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.8, delay, ease: "easeOut" }}
-    className={`absolute bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-teal-100 overflow-hidden flex flex-col ${className}`}
+    transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+    className={`absolute bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-teal-100 overflow-hidden flex flex-col ${className}`}
     style={{ zIndex }}
   >
     {/* Top Bar */}

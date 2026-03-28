@@ -3,7 +3,7 @@
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Check, Info, Calendar, Clock, CreditCard } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { CustomButton } from "@/components/custom-button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { pricingTiers, pricingHeader } from "@/content/pricing"
@@ -11,25 +11,9 @@ import Link from "next/link"
 
 export function PricingPreview() {
   const [billingCycle, setBillingCycle] = React.useState<"monthly" | "6month" | "yearly">("monthly")
-  const [bubbles, setBubbles] = React.useState<Array<{ id: number; x: number; y: number; size: number }>>([])
-
-  React.useEffect(() => {
-    // Create bubbles on cycle change
-    const newBubbles = Array.from({ length: 12 }, (_, i) => ({
-      id: Date.now() + i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 60 + 20,
-    }))
-    setBubbles(newBubbles)
-
-    // Clear bubbles after animation
-    const timer = setTimeout(() => setBubbles([]), 2000)
-    return () => clearTimeout(timer)
-  }, [billingCycle])
 
   return (
-    <section id="pricing" className="py-24 relative overflow-hidden">
+    <section id="pricing" className="py-24 relative overflow-hidden bg-background">
       <div className="container mx-auto px-6 md:px-12 lg:px-24">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -47,31 +31,31 @@ export function PricingPreview() {
           {/* Billing Cycle Tabs */}
           <div className="flex justify-center mt-8">
             <Tabs value={billingCycle} onValueChange={(value) => setBillingCycle(value as "monthly" | "6month" | "yearly")} className="w-full max-w-md">
-              <TabsList className="inline-flex w-auto p-1.5 bg-background/60 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg">
+              <TabsList className="inline-flex w-auto p-1.5 bg-muted/30 border border-primary/10 rounded-2xl">
                 <TabsTrigger 
                   value="monthly" 
-                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white gap-2"
                 >
                   <CreditCard className="h-4 w-4" />
                   <span>Monthly</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="6month" 
-                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white gap-2"
                 >
                   <Clock className="h-4 w-4" />
                   <span>6 Months</span>
-                  <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
+                  <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-white/20 text-white font-black">
                     -10%
                   </span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="yearly" 
-                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-white gap-2"
                 >
                   <Calendar className="h-4 w-4" />
                   <span>Yearly</span>
-                  <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
+                  <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-white/20 text-white font-black">
                     -20%
                   </span>
                 </TabsTrigger>
@@ -80,58 +64,31 @@ export function PricingPreview() {
           </div>
         </div>
 
-        {/* Bubble Animations */}
-        <AnimatePresence>
-          {bubbles.map((bubble) => (
-            <motion.div
-              key={bubble.id}
-              initial={{ opacity: 0, scale: 0, x: `${bubble.x}%`, y: `${bubble.y}%` }}
-              animate={{ 
-                opacity: [0, 0.6, 0],
-                scale: [0, 1.2, 1.5],
-                y: [`${bubble.y}%`, `${bubble.y - 20}%`]
-              }}
-              exit={{ opacity: 0, scale: 1.5 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className="absolute pointer-events-none z-0"
-              style={{
-                left: `${bubble.x}%`,
-                top: `${bubble.y}%`,
-              }}
-            >
-              <div 
-                className="rounded-full bg-gradient-to-br from-primary/30 to-primary/10 blur-sm"
-                style={{ width: bubble.size, height: bubble.size }}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start relative z-10">
           {pricingTiers.map((tier) => (
             <div
               key={tier.id}
               className={cn(
-                "relative flex flex-col p-8 rounded-3xl border transition-all duration-300 hover:shadow-2xl h-full",
+                "relative flex flex-col p-6 rounded-3xl border transition-all duration-300 hover:shadow-2xl h-full",
                 tier.mostPopular
                   ? "bg-background border-primary shadow-xl ring-2 ring-primary scale-105 z-10" 
                   : "bg-muted/30 border-muted hover:bg-background hover:border-primary/20"
               )}
             >
               {tier.mostPopular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-[8px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">
                   Most Popular
                 </div>
               )}
 
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-foreground mb-2">{tier.name}</h3>
-                <p className="text-sm text-muted-foreground min-h-[40px] line-clamp-2">{tier.description}</p>
-                <div className="mt-6 flex items-baseline gap-2">
-                  <span className="text-5xl font-extrabold tracking-tight text-foreground">
+              <div className="mb-6">
+                <h3 className="text-lg font-bold text-foreground mb-2">{tier.name}</h3>
+                <p className="text-xs text-muted-foreground min-h-[32px] line-clamp-2">{tier.description}</p>
+                <div className="mt-4 flex items-baseline gap-2">
+                  <span className="text-3xl font-extrabold tracking-tight text-foreground">
                     {billingCycle === "monthly" ? tier.priceMonthly : billingCycle === "6month" ? tier.price6Month : tier.priceYearly}
                   </span>
-                  <span className="text-sm font-medium text-muted-foreground">/month</span>
+                  <span className="text-xs font-medium text-muted-foreground">/month</span>
                 </div>
                 {billingCycle === "yearly" && (
                   <p className="text-xs text-primary font-bold mt-2">Billed annually (20% off)</p>
@@ -141,13 +98,13 @@ export function PricingPreview() {
                 )}
               </div>
 
-              <div className="flex-1 space-y-4 mb-8">
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">WHAT&apos;S INCLUDED</p>
-                <ul className="space-y-3">
+              <div className="flex-1 space-y-3 mb-6">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">WHAT&apos;S INCLUDED</p>
+                <ul className="space-y-2">
                   {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start text-sm">
-                      <div className="bg-primary/10 rounded-full p-1 mr-3 mt-0.5 flex-shrink-0">
-                        <Check className="h-3 w-3 text-primary" />
+                    <li key={feature} className="flex items-start text-xs">
+                      <div className="bg-primary/10 rounded-full p-0.5 mr-2 mt-0.5 flex-shrink-0">
+                        <Check className="h-2.5 w-2.5 text-primary" />
                       </div>
                       <span className="text-foreground/80 leading-relaxed">{feature}</span>
                     </li>
@@ -155,22 +112,19 @@ export function PricingPreview() {
                 </ul>
               </div>
 
-              <Link href="/contact">
-                <Button
+              <Link href="/contact" className="mt-auto">
+                <CustomButton
                   variant={tier.mostPopular ? "default" : "outline"}
-                  className={cn(
-                    "w-full h-12 text-sm font-semibold rounded-xl transition-all duration-200",
-                    tier.mostPopular 
-                      ? "shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:scale-[1.02]" 
-                      : "hover:bg-primary hover:text-primary-foreground hover:scale-[1.02]"
-                  )}
+                  size="sm"
+                  className="w-full"
+                  withArrow={tier.mostPopular}
                 >
-                  <span className="truncate">Get Started with {tier.name}</span>
-                </Button>
+                  <span className="truncate text-xs">Get Started with {tier.name}</span>
+                </CustomButton>
               </Link>
 
-              <div className="mt-6 pt-6 border-t border-border/50 flex items-center justify-center space-x-2 text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
-                <Info className="h-3 w-3" />
+              <div className="mt-4 pt-4 border-t border-border/50 flex items-center justify-center space-x-2 text-[8px] text-muted-foreground font-medium uppercase tracking-wider">
+                <Info className="h-2.5 w-2.5" />
                 <span>No credit card required</span>
               </div>
             </div>
@@ -185,14 +139,14 @@ export function PricingPreview() {
              </p>
              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/contact">
-                  <Button variant="outline" size="lg" className="h-14 px-8 text-base font-bold group">
+                  <CustomButton variant="outline" size="lg" className="min-w-[200px]" withArrow>
                     Contact Sales
-                  </Button>
+                  </CustomButton>
                 </Link>
                 <Link href="/contact">
-                  <Button size="lg" className="h-14 px-8 text-base font-bold group">
+                  <CustomButton size="lg" className="min-w-[200px]" glow withArrow>
                     Request Enterprise Demo
-                  </Button>
+                  </CustomButton>
                 </Link>
              </div>
           </div>

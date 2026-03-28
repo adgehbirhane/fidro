@@ -9,6 +9,7 @@ export const navItems = [
   { name: "Pricing", href: "/#pricing" },
   { name: "Industries", href: "/#industries" },
   { name: "About", href: "/#about" },
+  { name: "Blog", href: "/blog" },
 ]
 
 export const footerSections = [

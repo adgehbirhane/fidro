@@ -2,14 +2,20 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Menu, X, Dumbbell } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { CustomButton } from "@/components/custom-button"
 import { cn } from "@/lib/utils"
 import { navItems } from "@/lib/constants"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
+  const pathname = usePathname()
+
+  // Pages with light backgrounds that need dark text initially
+  const lightPages = ['/blog', '/contact', '/pricing']
+  const isLightPage = lightPages.some(page => pathname.startsWith(page))
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +42,7 @@ export function Navbar() {
             </div>
             <span className={cn(
               "text-2xl font-bold tracking-tight transition-colors",
-              scrolled ? "text-foreground" : "text-white"
+              scrolled ? "text-foreground" : isLightPage ? "text-foreground" : "text-white"
             )}>
               Fidro
             </span>
@@ -52,29 +58,32 @@ export function Navbar() {
                   "text-sm font-medium transition-colors",
                   scrolled 
                     ? "text-muted-foreground hover:text-primary" 
-                    : "text-white/80 hover:text-white"
+                    : isLightPage 
+                      ? "text-muted-foreground hover:text-primary"
+                      : "text-white/80 hover:text-white"
                 )}
               >
                 {item.name}
               </Link>
             ))}
-            <Button 
-              size="sm" 
-              className={cn(
-                scrolled 
-                  ? "bg-primary hover:bg-primary/90" 
-                  : "bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30"
-              )}
-            >
-              Request Demo
-            </Button>
+            <Link href="/contact">
+              <CustomButton 
+                size="sm" 
+                variant={scrolled ? "default" : isLightPage ? "default" : "outline"}
+                className={cn(
+                  !scrolled && !isLightPage && "bg-white/10 backdrop-blur-sm border-white/30 text-white hover:border-primary"
+                )}
+              >
+                Request Demo
+              </CustomButton>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             className={cn(
               "md:hidden p-2 transition-colors",
-              scrolled ? "text-foreground" : "text-white"
+              scrolled ? "text-foreground" : isLightPage ? "text-foreground" : "text-white"
             )}
             onClick={() => setIsOpen(!isOpen)}
           >
@@ -95,7 +104,9 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <Button className="w-full">Request Demo</Button>
+            <Link href="/contact" className="block w-full">
+              <CustomButton className="w-full">Request Demo</CustomButton>
+            </Link>
           </div>
         )}
       </div>

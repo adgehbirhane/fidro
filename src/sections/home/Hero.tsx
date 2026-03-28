@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/components/ui/button"
+import { CustomButton } from "@/components/custom-button"
 import { motion } from "framer-motion"
 import { Play, ArrowRight } from "lucide-react"
 import { heroData } from "@/lib/constants"
@@ -61,15 +61,16 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-4 justify-center mt-12"
           >
             <Link href="/contact">
-              <Button size="lg" className="h-14 px-8 text-lg font-semibold group bg-primary hover:bg-primary/90 text-white border-2 border-primary/50 backdrop-blur-sm">
+              <CustomButton size="lg" className="min-w-[200px]" glow withArrow>
                 {heroData.primaryCTA}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+              </CustomButton>
             </Link>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-semibold group bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20">
-              <Play className="mr-2 h-5 w-5 fill-current" />
-              {heroData.secondaryCTA}
-            </Button>
+            <Link href="/contact">
+              <CustomButton variant="outline" size="lg" className="min-w-[200px] border-white/30 text-white hover:border-primary">
+                <Play className="mr-2 h-5 w-5 fill-current" />
+                {heroData.secondaryCTA}
+              </CustomButton>
+            </Link>
           </motion.div>
         </div>
       </div>

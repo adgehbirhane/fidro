@@ -5,7 +5,7 @@ export const pricingHeader = {
 
 export const pricingTiers = [
   {
-    name: "One Month Free Trial",
+    name: "Free Trial",
     id: "tier-free-trial",
     priceMonthly: "Free",
     price6Month: "Free",
