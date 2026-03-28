@@ -32,7 +32,7 @@ export const blogPosts: BlogPost[] = [
     title: "How to Streamline Your Gym Operations in 2024",
     category: "Operations",
     featured: true,
-    image: "/blog/images/streamlining-gym-operations.jpg",
+    image: "/blog/images/streamlining-gym-operations.svg",
     excerpt: "Discover cutting-edge strategies and automation tools that will revolutionize your gym's operational efficiency in 2024. Learn from industry leaders who have transformed their businesses.",
     readTime: 8,
     date: "March 28, 2026",

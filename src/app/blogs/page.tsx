@@ -8,6 +8,7 @@ import { blogPosts } from "@/content/blogs"
 
 export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("")
+  const [activeFilter, setActiveFilter] = useState("all")
 
   const filteredPosts = useMemo(() => {
     return blogPosts.filter((post) => {
@@ -15,11 +16,27 @@ export default function BlogPage() {
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase())
       
-      return matchesSearch
+      let matchesFilter = true
+      if (activeFilter === "featured") {
+        matchesFilter = post.featured
+      } else if (activeFilter === "thisWeek") {
+        const postDate = new Date(post.date)
+        const today = new Date()
+        const startOfWeek = new Date(today)
+        startOfWeek.setDate(today.getDate() - today.getDay())
+        startOfWeek.setHours(0, 0, 0, 0)
+        matchesFilter = postDate >= startOfWeek
+      }
+      
+      return matchesSearch && matchesFilter
     })
-  }, [searchQuery])
+  }, [searchQuery, activeFilter])
 
   const featuredPosts = blogPosts.filter(post => post.featured).slice(0, 3)
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter)
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -33,25 +50,12 @@ export default function BlogPage() {
               <BlogFilters
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
+                onFilterChange={handleFilterChange}
               />
             </div>
             
             {/* Main Content */}
             <div className="lg:col-span-3 space-y-16">
-              {/* Featured Posts */}
-              {searchQuery === "" && featuredPosts.length > 0 && (
-                <div className="space-y-8">
-                  <div className="flex items-center gap-4">
-                    <div className="w-1 h-8 bg-primary rounded-full" />
-                    <h2 className="text-3xl font-black text-foreground tracking-tight">Featured Articles</h2>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {featuredPosts.map((post) => (
-                      <BlogCard key={post.slug} post={post} />
-                    ))}
-                  </div>
-                </div>
-              )}
               
               {/* All Posts */}
               <div className="space-y-8">

@@ -1,16 +1,48 @@
 import { Search, Filter } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { CustomButton } from "@/components/custom-button"
+import { blogPosts } from "@/content/blogs"
+import { useState } from "react"
 
 interface BlogFiltersProps {
   searchQuery: string
   onSearchChange: (query: string) => void
+  onFilterChange?: (filter: string) => void
 }
 
 export function BlogFilters({ 
   searchQuery, 
-  onSearchChange 
+  onSearchChange,
+  onFilterChange
 }: BlogFiltersProps) {
+  const [activeFilter, setActiveFilter] = useState("all")
+  
+  // Calculate statistics from blog data
+  const totalArticles = blogPosts.length
+  const featuredArticles = blogPosts.filter(post => post.featured).length
+  
+  // Calculate "This Week" - posts from the current week
+  const thisWeekArticles = blogPosts.filter(post => {
+    const postDate = new Date(post.date)
+    const today = new Date()
+    const startOfWeek = new Date(today)
+    startOfWeek.setDate(today.getDate() - today.getDay())
+    startOfWeek.setHours(0, 0, 0, 0)
+    
+    return postDate >= startOfWeek
+  }).length
+
+  const filterOptions = [
+    { id: "all", label: "All Articles", count: totalArticles },
+    { id: "featured", label: "Featured", count: featuredArticles },
+    { id: "thisWeek", label: "This Week", count: thisWeekArticles }
+  ]
+
+  const handleFilterClick = (filterId: string) => {
+    setActiveFilter(filterId)
+    onFilterChange?.(filterId)
+  }
+
   return (
     <div className="sticky top-18 space-y-8">
       {/* Search */}
@@ -24,39 +56,38 @@ export function BlogFilters({
         />
       </div>
       
-      {/* Quick Stats */}
+      {/* Filter Tabs */}
       <div className="bg-muted/30 rounded-2xl p-6 space-y-4 border">
         <div className="flex items-center gap-2 text-sm font-bold text-muted-foreground uppercase tracking-wider">
           <Filter className="h-4 w-4" />
-          <span>Quick Stats</span>
+          <span>Filter By</span>
         </div>
-        <div className="space-y-3">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">Total Articles</span>
-            <span className="text-sm font-bold text-primary">3</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">This Week</span>
-            <span className="text-sm font-bold text-primary">0</span>
-          </div>
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">Featured</span>
-            <span className="text-sm font-bold text-primary">2</span>
-          </div>
+        <div className="flex flex-col gap-2">
+          {filterOptions.map((option) => (
+            <button
+              key={option.id}
+              onClick={() => handleFilterClick(option.id)}
+              className={`
+                flex justify-between items-center w-full p-3 rounded-xl transition-all duration-200
+                ${activeFilter === option.id 
+                  ? 'bg-primary text-primary-foreground shadow-sm' 
+                  : 'hover:bg-muted/50 text-foreground'
+                }
+              `}
+            >
+              <span className="text-sm font-medium">{option.label}</span>
+              <span className={`
+                text-xs px-2 py-1 rounded-full font-semibold
+                ${activeFilter === option.id 
+                  ? 'bg-primary-foreground/20 text-primary-foreground' 
+                  : 'bg-primary/10 text-primary'
+                }
+              `}>
+                {option.count}
+              </span>
+            </button>
+          ))}
         </div>
-      </div>
-      
-      {/* Newsletter */}
-      <div className="bg-gradient-to-br from-primary/10 to-cyan-500/10 rounded-2xl p-6 border border-primary/20">
-        <h3 className="font-bold text-foreground mb-2">Stay Updated</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          Get the latest fitness insights delivered to your inbox weekly.
-        </p>
-        <CustomButton className="w-full rounded-xl py-3 px-4"
-        withArrow
-        >
-          Subscribe
-        </CustomButton>
       </div>
     </div>
   )

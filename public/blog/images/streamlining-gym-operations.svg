@@ -1,0 +1,76 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#f0fdfa;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#99f6e4;stop-opacity:0.3" />
+        </linearGradient>
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="5" />
+          <feOffset dx="0" dy="10" result="offsetblur" />
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.1" />
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      
+      <!-- Background -->
+      <rect width="1200" height="630" fill="url(#grad1)"/>
+      
+      <!-- Abstract Tech Pattern -->
+      <g opacity="0.1">
+        <path d="M0 100 Q 300 50 600 100 T 1200 100" fill="none" stroke="#004d4d" stroke-width="2"/>
+        <path d="M0 200 Q 300 150 600 200 T 1200 200" fill="none" stroke="#004d4d" stroke-width="2"/>
+        <path d="M0 300 Q 300 250 600 300 T 1200 300" fill="none" stroke="#004d4d" stroke-width="2"/>
+      </g>
+
+      <!-- Central Element: Dashboard Layout -->
+      <g transform="translate(300, 150)" filter="url(#shadow)">
+        <rect width="600" height="350" rx="20" fill="#ffffff" stroke="#99f6e4" stroke-width="2"/>
+        <rect width="600" height="60" rx="20" fill="#004d4d"/>
+        <rect x="0" y="40" width="600" height="20" fill="#004d4d"/>
+        
+        <!-- Header Elements -->
+        <circle cx="40" cy="30" r="6" fill="#ffffff" opacity="0.5"/>
+        <circle cx="65" cy="30" r="6" fill="#ffffff" opacity="0.5"/>
+        <circle cx="90" cy="30" r="6" fill="#ffffff" opacity="0.5"/>
+        <rect x="150" y="20" width="300" height="20" rx="10" fill="#ffffff" opacity="0.2"/>
+
+        <!-- Sidebar -->
+        <rect x="20" y="80" width="140" height="250" rx="10" fill="#f0fdfa"/>
+        <rect x="35" y="100" width="110" height="12" rx="6" fill="#008080" opacity="0.3"/>
+        <rect x="35" y="130" width="90" height="12" rx="6" fill="#99f6e4"/>
+        <rect x="35" y="160" width="100" height="12" rx="6" fill="#99f6e4"/>
+        <rect x="35" y="190" width="80" height="12" rx="6" fill="#99f6e4"/>
+
+        <!-- Content Area: Analytics -->
+        <rect x="180" y="80" width="400" height="150" rx="10" fill="#f0fdfa"/>
+        <text x="200" y="110" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#004d4d">Operational Efficiency</text>
+        
+        <!-- Bar Chart -->
+        <rect x="200" y="140" width="20" height="70" rx="4" fill="#004d4d"/>
+        <rect x="235" y="120" width="20" height="90" rx="4" fill="#008080"/>
+        <rect x="270" y="160" width="20" height="50" rx="4" fill="#00b3b3"/>
+        <rect x="305" y="130" width="20" height="80" rx="4" fill="#004d4d"/>
+        <rect x="340" y="150" width="20" height="60" rx="4" fill="#008080"/>
+
+        <!-- Bottom Cards -->
+        <rect x="180" y="245" width="190" height="85" rx="10" fill="#004d4d" opacity="0.1"/>
+        <rect x="390" y="245" width="190" height="85" rx="10" fill="#008080" opacity="0.1"/>
+        
+        <circle cx="215" cy="275" r="15" fill="#004d4d"/>
+        <path d="M210 275 L215 280 L225 270" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <text x="240" y="280" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#004d4d">Automation</text>
+
+        <circle cx="425" cy="275" r="15" fill="#008080"/>
+        <path d="M420 280 L425 270 L430 280" fill="none" stroke="#ffffff" stroke-width="2"/>
+        <text x="450" y="280" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#008080">Growth</text>
+      </g>
+
+      <!-- Decorative Floats -->
+      <circle cx="150" cy="500" r="40" fill="#004d4d" opacity="0.1"/>
+      <rect x="1000" y="100" width="80" height="80" rx="20" fill="#008080" opacity="0.1" transform="rotate(15, 1040, 140)"/>
+    </svg>

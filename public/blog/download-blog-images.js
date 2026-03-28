@@ -8,22 +8,25 @@ if (!fs.existsSync(imagesDir)) {
   fs.mkdirSync(imagesDir, { recursive: true });
 }
 
-// Blog images to download with their URLs
+// Enterprise-grade Professional Blog Images (Unsplash - High Resolution)
 const blogImages = [
   {
     filename: 'streamlining-gym-operations.jpg',
-    url: 'https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    description: 'Gym operations and management technology'
+    // Professional gym manager using a tablet in a modern gym environment
+    url: 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=1200&h=630&auto=format&fit=crop',
+    description: 'Professional gym operations and management with modern equipment'
   },
   {
     filename: 'boosting-member-retention.jpg', 
-    url: 'https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    description: 'Fitness community and member retention'
+    // Diverse fitness community high-fiving and smiling in a professional setting
+    url: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1200&h=630&auto=format&fit=crop',
+    description: 'High-engagement fitness community for member retention'
   },
   {
     filename: 'future-of-fitness-tech.jpg',
-    url: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    description: 'Future fitness technology and wearable devices'
+    // Close up of a high-end smart watch or fitness tracker in a tech-focused gym
+    url: 'https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=1200&h=630&auto=format&fit=crop',
+    description: 'Futuristic fitness technology and biometric tracking'
   }
 ];
 
@@ -56,7 +59,7 @@ function downloadImage(url, filename) {
 
 // Download all images
 async function downloadAllImages() {
-  console.log('📥 Starting download of blog images...\n');
+  console.log('📥 Starting download of professional blog hero images...\n');
   
   try {
     for (const image of blogImages) {
@@ -64,11 +67,11 @@ async function downloadAllImages() {
       await downloadImage(image.url, image.filename);
     }
     
-    console.log('\n✅ All images downloaded successfully!');
+    console.log('\n✅ All professional images downloaded successfully!');
     console.log(`📁 Images saved to: ${imagesDir}`);
     
     // Update the blogs.ts file with new image paths
-    console.log('\n📝 Updating blogs.ts with new image paths...');
+    console.log('\n📝 Ensuring blogs.ts is updated with correct image paths...');
     updateBlogsTsFile();
     
   } catch (error) {
@@ -83,26 +86,25 @@ function updateBlogsTsFile() {
   if (fs.existsSync(blogsTsPath)) {
     let content = fs.readFileSync(blogsTsPath, 'utf8');
     
-    // Replace the SVG image paths with JPG paths
+    // Replace SVG paths with JPG paths if they exist
     content = content.replace(
-      '/blog/images/streamlining-gym-operations.svg',
+      /\/blog\/images\/streamlining-gym-operations\.svg/g,
       '/blog/images/streamlining-gym-operations.jpg'
     );
     content = content.replace(
-      '/blog/images/boosting-member-retention.svg',
+      /\/blog\/images\/boosting-member-retention\.svg/g,
       '/blog/images/boosting-member-retention.jpg'
     );
     content = content.replace(
-      '/blog/images/future-of-fitness-tech.svg',
+      /\/blog\/images\/future-of-fitness-tech\.svg/g,
       '/blog/images/future-of-fitness-tech.jpg'
     );
     
     fs.writeFileSync(blogsTsPath, content);
-    console.log('✅ Updated blogs.ts with new image paths');
+    console.log('✅ blogs.ts updated successfully.');
   } else {
-    console.log('⚠️  blogs.ts file not found, please update manually');
+    console.log('⚠️ blogs.ts not found at: ' + blogsTsPath);
   }
 }
 
-// Run the download
 downloadAllImages();
