@@ -37,9 +37,9 @@ export const blogPosts: BlogPost[] = [
     readTime: 8,
     date: "March 28, 2026",
     author: {
-      name: "B2H",
+      name: "Belay Birhanu",
       avatar: "/blog/images/author-avatar.svg",
-      role: "Operations Expert"
+      role: "From Fidro Team"
     },
     content: {
       sections: [
@@ -118,9 +118,9 @@ export const blogPosts: BlogPost[] = [
     readTime: 9,
     date: "March 21, 2026",
     author: {
-      name: "B2H",
+      name: "Belay Birhanu",
       avatar: "/blog/images/author-avatar.svg",
-      role: "Member Retention Specialist"
+      role: "From Fidro Team"
     },
     content: {
       sections: [
@@ -185,9 +185,9 @@ export const blogPosts: BlogPost[] = [
     readTime: 11,
     date: "March 14, 2026",
     author: {
-      name: "B2H",
+      name: "Belay Birhanu",
       avatar: "/blog/images/author-avatar.svg",
-      role: "Fitness Technology Analyst"
+      role: "From Fidro Team"
     },
     content: {
       sections: [

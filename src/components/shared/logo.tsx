@@ -33,7 +33,7 @@ export function Logo({ className = "", size = "md", showText = true, textColor, 
       </div>
       {showText && (
         <span className={`font-bold tracking-tight ${textSizes[size]} ${textColor || "text-foreground"}`}>
-          Fidro
+          FIDRO
         </span>
       )}
     </div>
