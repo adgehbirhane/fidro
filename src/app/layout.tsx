@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   keywords: ["fitness management", "gym software", "member management", "gym billing", "attendance tracking", "fitness center software"],
   authors: [{ name: "Fidro Team" }],
   manifest: '/manifest.json',
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
     title: "Fidro | Transform Your Fitness Business",
     description: "The all-in-one platform to streamline your gym operations and boost member engagement.",

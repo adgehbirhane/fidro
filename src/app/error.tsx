@@ -4,7 +4,6 @@ import * as React from "react"
 import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { AlertTriangle, RefreshCw } from "lucide-react"
-import { Logo } from "@/components/shared/logo"
 import { CustomButton } from "@/components/custom-button"
 
 export default function Error({

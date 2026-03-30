@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, AlertCircle, Loader2 } from "lucide-react"
 import { CustomButton } from "@/components/custom-button"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -37,6 +37,8 @@ type FormValues = z.infer<typeof formSchema>
 
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = React.useState(false)
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [submitError, setSubmitError] = React.useState<string | null>(null)
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -49,10 +51,56 @@ export function ContactForm() {
     },
   })
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Form submitted:", data)
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 5000)
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    try {
+      // Using Formspree for backend-less form submission
+      const formSpreeEndpoint = 'https://formspree.io/f/xjgpwwel'
+      
+      const formData = new FormData()
+      formData.append('fullName', data.fullName)
+      formData.append('email', data.email)
+      formData.append('businessName', data.businessName)
+      formData.append('interestedIn', data.interestedIn)
+      if (data.message) {
+        formData.append('message', data.message)
+      }
+
+      const response = await fetch(formSpreeEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit form')
+      }
+
+      // Success
+      setIsSubmitted(true)
+      form.reset()
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setIsSubmitted(false), 5000)
+      
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitError(error instanceof Error ? error.message : 'An unexpected error occurred')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleTryAgain = () => {
+    setIsSubmitted(false)
+    setSubmitError(null)
+    form.reset()
   }
 
   return (
@@ -80,10 +128,7 @@ export function ContactForm() {
               </div>
               <CustomButton 
                 variant="outline" 
-                onClick={() => {
-                  setIsSubmitted(false)
-                  form.reset()
-                }} 
+                onClick={handleTryAgain}
               >
                 Send Another Message
               </CustomButton>
@@ -94,6 +139,20 @@ export function ContactForm() {
                 <h3 className="text-2xl font-bold text-foreground uppercase tracking-tight">Book a Demo</h3>
                 <p className="text-muted-foreground text-sm">Experience Fidro firsthand.</p>
               </div>
+
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3"
+                >
+                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-red-800">Submission Error</p>
+                    <p className="text-sm text-red-700">{submitError}</p>
+                  </div>
+                </motion.div>
+              )}
 
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -108,6 +167,7 @@ export function ContactForm() {
                             <Input 
                               placeholder="John Doe" 
                               className="h-12 rounded-xl border bg-muted/10 focus-visible:ring-primary/20 transition-all"
+                              disabled={isSubmitting}
                               {...field as React.InputHTMLAttributes<HTMLInputElement>} 
                             />
                           </FormControl>
@@ -125,6 +185,7 @@ export function ContactForm() {
                             <Input 
                               placeholder="john@gym.com" 
                               className="h-12 rounded-xl border bg-muted/10 focus-visible:ring-primary/20 transition-all"
+                              disabled={isSubmitting}
                               {...field as React.InputHTMLAttributes<HTMLInputElement>} 
                             />
                           </FormControl>
@@ -143,6 +204,7 @@ export function ContactForm() {
                           <Input 
                             placeholder="Your Gym Name" 
                             className="h-12 rounded-xl border bg-muted/10 focus-visible:ring-primary/20 transition-all"
+                            disabled={isSubmitting}
                             {...field as React.InputHTMLAttributes<HTMLInputElement>} 
                           />
                         </FormControl>
@@ -156,7 +218,7 @@ export function ContactForm() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Solution</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} defaultValue={field.value} disabled={isSubmitting}>
                           <FormControl>
                             <SelectTrigger className="h-12 rounded-xl border bg-muted/10 focus:ring-primary/20 transition-all">
                               <SelectValue placeholder="Select a solution" />
@@ -183,6 +245,7 @@ export function ContactForm() {
                           <Textarea 
                             placeholder="How can we help?" 
                             className="min-h-[120px] rounded-xl border bg-muted/10 focus-visible:ring-primary/20 transition-all resize-none"
+                            disabled={isSubmitting}
                             {...field as React.TextareaHTMLAttributes<HTMLTextAreaElement>} 
                           />
                         </FormControl>
@@ -195,8 +258,16 @@ export function ContactForm() {
                     type="submit" 
                     className="w-full h-14" 
                     withArrow
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
                   </CustomButton>
                 </form>
               </Form>

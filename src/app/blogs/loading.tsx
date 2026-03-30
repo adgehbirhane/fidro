@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { FileText, Calendar, User } from "lucide-react"
+import { Calendar, User } from "lucide-react"
 
 export default function Loading() {
   return (
