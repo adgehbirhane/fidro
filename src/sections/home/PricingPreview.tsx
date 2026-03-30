@@ -3,7 +3,6 @@
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Check, Info, Calendar, Clock, CreditCard } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { CustomButton } from "@/components/custom-button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"

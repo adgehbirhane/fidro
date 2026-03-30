@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Mail, Phone, MessageSquare, CheckCircle2, MapPin, Sparkles, Clock, Globe } from "lucide-react"
+import { Mail, Phone, MessageSquare, CheckCircle2, MapPin, Sparkles, Clock } from "lucide-react"
 import { CustomButton } from "@/components/custom-button"
 import { contactData } from "@/lib/constants"
 import { useForm } from "react-hook-form"
