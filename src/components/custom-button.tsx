@@ -66,8 +66,8 @@ const CustomButton = React.forwardRef<HTMLButtonElement, CustomButtonProps>(
             "relative overflow-hidden group border-2 font-bold tracking-tight z-10",
             "transition-all duration-300 ease-out",
             activeVariant === "default" && "bg-primary border-primary text-white",
-            activeVariant === "secondary" && "bg-secondary border-secondary text-primary",
-            activeVariant === "outline" && "bg-transparent border-primary text-primary",
+            activeVariant === "secondary" && "bg-secondary border-secondary text-seconday",
+            activeVariant === "outline" && "bg-transparent border-primary text-seconday",
             className
           )}
           {...props}

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { GoToTop } from "@/components/go-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
   description: "Fidro is a comprehensive fitness and gym management system designed to streamline operations, boost member engagement, and maximize revenue.",
   keywords: ["fitness management", "gym software", "member management", "gym billing", "attendance tracking", "fitness center software"],
   authors: [{ name: "Fidro Team" }],
+  manifest: '/manifest.json',
   openGraph: {
     title: "Fidro | Transform Your Fitness Business",
     description: "The all-in-one platform to streamline your gym operations and boost member engagement.",
@@ -57,6 +59,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <GoToTop />
       </body>
     </html>
   );

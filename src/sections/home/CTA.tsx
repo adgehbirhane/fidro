@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { CustomButton } from "@/components/custom-button"
-import { Zap, ShieldCheck, Sparkles } from "lucide-react"
+import { ArrowRight, Zap, ShieldCheck, Sparkles } from "lucide-react"
 
 export function CTA() {
   return (

@@ -3,7 +3,8 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, Dumbbell } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import { Logo } from "@/components/shared/logo"
 import { CustomButton } from "@/components/custom-button"
 import { cn } from "@/lib/utils"
 import { navItems } from "@/lib/constants"
@@ -37,15 +38,11 @@ export function Navbar() {
       <div className="container">
         <nav className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-primary p-1.5 rounded-lg">
-              <Dumbbell className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <span className={cn(
-              "text-2xl font-bold tracking-tight transition-colors",
-              scrolled ? "text-foreground" : isLightPage ? "text-foreground" : "text-white"
-            )}>
-              Fidro
-            </span>
+            <Logo 
+              size="md" 
+              textColor={scrolled ? "text-foreground" : isLightPage ? "text-foreground" : "text-white"}
+              invertColor={!scrolled && !isLightPage}
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -70,13 +67,12 @@ export function Navbar() {
               <CustomButton 
                 withArrow
                 size="sm" 
-                variant={scrolled ? "default" : isLightPage ? "default" : "outline"}
+                variant={scrolled ? "default" : isLightPage ? "outline" : "default"}
                 className={cn(
                   !scrolled && !isLightPage && "bg-white/10 backdrop-blur-sm border-white/30 text-white hover:border-primary"
                 )}
-              >
-                Request Demo
-              </CustomButton>
+              >Request Demo
+                           </CustomButton>
             </Link>
           </div>
 

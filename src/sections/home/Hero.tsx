@@ -3,7 +3,7 @@
 import * as React from "react"
 import { CustomButton } from "@/components/custom-button"
 import { motion } from "framer-motion"
-import { Play } from "lucide-react"
+import { Play, ArrowRight } from "lucide-react"
 import { heroData } from "@/lib/constants"
 import Link from "next/link"
 
@@ -66,7 +66,11 @@ export function Hero() {
               </CustomButton>
             </Link>
             <Link href="/contact">
-              <CustomButton variant="outline" size="lg" className="min-w-[200px] border-white/30 text-white hover:border-primary">
+              <CustomButton 
+                variant="default" 
+                size="lg" 
+                className="min-w-[200px] bg-white/10 backdrop-blur-sm border-white/30 text-white hover:border-primary"
+              >
                 <Play className="mr-2 h-5 w-5 fill-current" />
                 {heroData.secondaryCTA}
               </CustomButton>

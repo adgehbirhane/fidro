@@ -2,8 +2,8 @@ import { ContactForm } from "@/sections/contact/ContactForm"
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen pt-20">
+    <div className="flex flex-col min-h-screen">
       <ContactForm />
-    </main>
+    </div>
   )
 }

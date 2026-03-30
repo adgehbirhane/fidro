@@ -1,5 +1,5 @@
 import React from 'react'
-import { Twitter, Facebook, Linkedin, Instagram } from 'lucide-react'
+import { Twitter, Facebook, Linkedin, Send } from 'lucide-react'
 
 export default function SocialMedia() {
   return (
@@ -32,13 +32,13 @@ export default function SocialMedia() {
                 <Linkedin className="h-4 w-4" />
               </a>
               <a
-                href="https://instagram.com/fidro"
+                href="https://t.me/fidro"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Follow Fidro on Instagram"
+                aria-label="Join Fidro on Telegram"
               >
-                <Instagram className="h-4 w-4" />
+                <Send className="h-4 w-4" />
               </a>
             </div>
   )

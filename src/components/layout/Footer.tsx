@@ -1,21 +1,17 @@
 import Link from "next/link"
-import { Dumbbell, Mail, Phone, MapPin } from "lucide-react"
+import { Mail, Phone, MapPin } from "lucide-react"
+import { Logo } from "@/components/shared/logo"
 import SocialMedia from "../shared/social-media"
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t py-16 px-6 md:px-12 lg:px-24">
+    <footer className="bg-background border-t py-16">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           {/* Brand Section */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="bg-primary p-1.5 rounded-lg">
-                <Dumbbell className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <span className="text-2xl font-bold tracking-tight text-foreground">
-                Fidro
-              </span>
+              <Logo size="md" />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
           Fitness & gym management system
