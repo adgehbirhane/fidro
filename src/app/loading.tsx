@@ -12,14 +12,7 @@ export default function Loading() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="text-center space-y-8"
-      >
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-        >
-          <Logo size="lg" />
-        </motion.div>
-        
+      > 
         <div className="space-y-4">
           <motion.h1 
             className="text-2xl font-bold text-foreground"
