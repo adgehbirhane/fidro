@@ -25,12 +25,12 @@ function AnimatedPrice({
   const [previousValue, setPreviousValue] = React.useState(numericValue)
   const suffix = price.includes("ETB") ? " ETB" : ""
 
-  // Format number to array of digits with comma positions
+  // Format number to string with commas
   const formatNumber = (num: number) => {
-    return num.toLocaleString('en-US').split('')
+    return num.toLocaleString('en-US')
   }
 
-  // Animate counting when price changes
+  // Animate counting only for the last digit
   React.useEffect(() => {
     if (isFree) return
     
@@ -41,18 +41,21 @@ function AnimatedPrice({
     
     if (totalSteps === 0) return
     
-    const duration = 1200 // slightly longer for smoother feel
+    const duration = 280 // ultra-fast: 100ms count + 80ms deceleration + 100ms landing
     const direction = diff > 0 ? 1 : -1
     
-    // Easing function: ease-out cubic (fast start, slow end)
-    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+    // Professional easing: fast start and middle, slow down at the end
+    // Using ease-out expo for dramatic deceleration
+    const easeOutExpo = (t: number) => {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+    }
     
     const startTime = Date.now()
     
     const animate = () => {
       const elapsed = Date.now() - startTime
       const progress = Math.min(elapsed / duration, 1)
-      const easedProgress = easeOutCubic(progress)
+      const easedProgress = easeOutExpo(progress)
       
       const stepsToMove = Math.round(easedProgress * totalSteps)
       const newValue = currentValue + (direction * stepsToMove)
@@ -78,40 +81,40 @@ function AnimatedPrice({
     )
   }
 
-  const currentDigits = formatNumber(currentValue)
-  const previousDigits = formatNumber(previousValue)
+  const currentFormatted = formatNumber(currentValue)
+  const previousFormatted = formatNumber(previousValue)
+  
+  // Get all digits except the last one
+  const allButLast = currentFormatted.slice(0, -1)
+  // Get only the last digit
+  const lastDigit = currentFormatted.slice(-1)
+  const previousLastDigit = previousFormatted.slice(-1)
+  
+  const hasLastDigitChanged = lastDigit !== previousLastDigit
 
   return (
     <div className="flex items-baseline gap-1">
       <div className="text-4xl font-extrabold tracking-tight text-foreground flex overflow-hidden">
-        {currentDigits.map((digit, index) => {
-          // Check if this digit changed
-          const hasChanged = previousDigits[index] !== digit
-          
-          return (
-            <span
-              key={`${index}-${digit}`}
-              className="relative inline-block"
-              style={{
-                minWidth: digit === ',' ? '0.3em' : '0.65em',
-                textAlign: 'center'
-              }}
-            >
-              <motion.span
-                initial={hasChanged ? { y: -24, opacity: 0 } : { y: 0, opacity: 1 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ 
-                  duration: 0.5,
-                  ease: [0.34, 1.56, 0.64, 1], // spring-like bounce
-                  delay: hasChanged ? index * 0.02 : 0
-                }}
-                className="inline-block"
-              >
-                {digit}
-              </motion.span>
-            </span>
-          )
-        })}
+        {/* Display all digits except the last one normally */}
+        <span>{allButLast}</span>
+        
+        {/* Animate only the last digit with slider effect */}
+        <motion.span
+          key={lastDigit}
+          initial={hasLastDigitChanged ? { y: -24, opacity: 0 } : { y: 0, opacity: 1 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ 
+            duration: 0.5,
+            ease: [0.34, 1.56, 0.64, 1], // spring-like bounce
+          }}
+          className="inline-block"
+          style={{
+            minWidth: '0.65em',
+            textAlign: 'center'
+          }}
+        >
+          {lastDigit}
+        </motion.span>
       </div>
       <motion.span 
         className="text-sm font-medium text-muted-foreground"
