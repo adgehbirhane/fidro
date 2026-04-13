@@ -9,6 +9,120 @@ import { cn } from "@/lib/utils"
 import { pricingTiers, pricingHeader } from "@/content/pricing"
 import Link from "next/link"
 import confetti from 'canvas-confetti'
+import AnimatedNumbers from "react-animated-numbers"
+
+// Helper component for animated price display
+function AnimatedPrice({ 
+  price, 
+  billingCycle 
+}: { 
+  price: string
+  billingCycle: "monthly" | "6month" | "yearly"
+}) {
+  // Handle "Free" case
+  if (price === "Free") {
+    return (
+      <span className="text-4xl font-extrabold tracking-tight text-foreground">
+        Free
+      </span>
+    )
+  }
+
+  // Extract numeric value from price string (e.g., "8,999 ETB" -> 8999)
+  const numericValue = parseInt(price.replace(/[^0-9]/g, ''), 10)
+  const [currentValue, setCurrentValue] = React.useState(numericValue)
+  const [previousValue, setPreviousValue] = React.useState(numericValue)
+  const suffix = price.includes("ETB") ? " ETB" : ""
+
+  // Format number to array of digits with comma positions
+  const formatNumber = (num: number) => {
+    return num.toLocaleString('en-US').split('')
+  }
+
+  // Animate counting when price changes
+  React.useEffect(() => {
+    setPreviousValue(currentValue)
+    const targetValue = numericValue
+    const diff = targetValue - currentValue
+    const totalSteps = Math.abs(diff)
+    
+    if (totalSteps === 0) return
+    
+    const duration = 1200 // slightly longer for smoother feel
+    const direction = diff > 0 ? 1 : -1
+    
+    // Easing function: ease-out cubic (fast start, slow end)
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+    
+    const startTime = Date.now()
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime
+      const progress = Math.min(elapsed / duration, 1)
+      const easedProgress = easeOutCubic(progress)
+      
+      const stepsToMove = Math.round(easedProgress * totalSteps)
+      const newValue = currentValue + (direction * stepsToMove)
+      
+      setCurrentValue(newValue)
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      } else {
+        setCurrentValue(targetValue)
+      }
+    }
+    
+    requestAnimationFrame(animate)
+  }, [numericValue])
+
+  const currentDigits = formatNumber(currentValue)
+  const previousDigits = formatNumber(previousValue)
+
+  return (
+    <div className="flex items-baseline gap-1">
+      <div className="text-4xl font-extrabold tracking-tight text-foreground flex overflow-hidden">
+        {currentDigits.map((digit, index) => {
+          // Check if this digit changed
+          const hasChanged = previousDigits[index] !== digit
+          
+          return (
+            <span
+              key={`${index}-${digit}`}
+              className="relative inline-block"
+              style={{
+                minWidth: digit === ',' ? '0.3em' : '0.65em',
+                textAlign: 'center'
+              }}
+            >
+              <motion.span
+                initial={hasChanged ? { y: -24, opacity: 0 } : { y: 0, opacity: 1 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ 
+                  duration: 0.5,
+                  ease: [0.34, 1.56, 0.64, 1], // spring-like bounce
+                  delay: hasChanged ? index * 0.02 : 0
+                }}
+                className="inline-block"
+              >
+                {digit}
+              </motion.span>
+            </span>
+          )
+        })}
+      </div>
+      <motion.span 
+        className="text-sm font-medium text-muted-foreground"
+        key={`${suffix}-${billingCycle}`}
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: 0.4 }}
+      >
+        /month
+      </motion.span>
+    </div>
+  )
+}
 
 export function PricingPreview() {
   const [billingCycle, setBillingCycle] = React.useState<"monthly" | "6month" | "yearly">("monthly")
@@ -131,39 +245,39 @@ export function PricingPreview() {
               >
                 <Tabs value={billingCycle} onValueChange={(value) => handleBillingCycleChange(value as "monthly" | "6month" | "yearly")} className="w-full max-w-md">
                   <TabsList className="inline-flex w-auto p-1.5 bg-background/60 backdrop-blur-xl border border-primary/20 rounded-2xl shadow-lg">
-                  <TabsTrigger 
-                    value="monthly" 
-                    data-value="monthly"
-                    className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
-                  >
-                    <CreditCard className="h-4 w-4" />
-                    <span>Monthly</span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="6month" 
-                    data-value="6month"
-                    className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
-                  >
-                    <Clock className="h-4 w-4" />
-                    <span>6 Months</span>
-                    <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
-                      -10%
-                    </span>
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="yearly" 
-                    data-value="yearly"
-                    className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
-                  >
-                    <Calendar className="h-4 w-4" />
-                    <span>Yearly</span>
-                    <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
-                      -20%
-                    </span>
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-            </div>
+                    <TabsTrigger 
+                      value="monthly" 
+                      data-value="monthly"
+                      className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                    >
+                      <CreditCard className="h-4 w-4" />
+                      <span>Monthly</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="6month" 
+                      data-value="6month"
+                      className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                    >
+                      <Clock className="h-4 w-4" />
+                      <span>6 Months</span>
+                      <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
+                        -10%
+                      </span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="yearly" 
+                      data-value="yearly"
+                      className="px-6 py-2.5 text-xs font-bold uppercase tracking-widest transition-all rounded-xl data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-md hover:text-primary gap-2"
+                    >
+                      <Calendar className="h-4 w-4" />
+                      <span>Yearly</span>
+                      <span className="inline-flex text-[9px] px-1.5 py-0.5 rounded-full bg-primary-foreground/20 text-primary-foreground font-black">
+                        -20%
+                      </span>
+                    </TabsTrigger>
+                  </TabsList>
+                </Tabs>
+              </div>
           </div>
         </div>
 
@@ -214,18 +328,38 @@ export function PricingPreview() {
               <div className="mb-6">
                 <h3 className="text-lg font-bold text-foreground mb-1">{tier.name}</h3>
                 <p className="text-xs text-muted-foreground min-h-[32px] line-clamp-2">{tier.description}</p>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-4xl font-extrabold tracking-tight text-foreground">
-                    {billingCycle === "monthly" ? tier.priceMonthly : billingCycle === "6month" ? tier.price6Month : tier.priceYearly}
-                  </span>
-                  <span className="text-sm font-medium text-muted-foreground">/month</span>
+                <div className="mt-4">
+                  <AnimatedPrice 
+                    price={billingCycle === "monthly" ? tier.priceMonthly : billingCycle === "6month" ? tier.price6Month : tier.priceYearly}
+                    billingCycle={billingCycle}
+                  />
                 </div>
-                {billingCycle === "yearly" && (
-                  <p className="text-xs text-primary font-bold mt-1">Billed annually (20% off)</p>
-                )}
-                {billingCycle === "6month" && (
-                  <p className="text-xs text-primary font-bold mt-1">Billed every 6 months (10% off)</p>
-                )}
+                <AnimatePresence mode="wait">
+                  {billingCycle === "yearly" && tier.priceYearly !== "Free" && (
+                    <motion.p
+                      key="yearly-badge"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-xs text-primary font-bold mt-1"
+                    >
+                      Billed annually (20% off)
+                    </motion.p>
+                  )}
+                  {billingCycle === "6month" && tier.price6Month !== "Free" && (
+                    <motion.p
+                      key="6month-badge"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-xs text-primary font-bold mt-1"
+                    >
+                      Billed every 6 months (10% off)
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
 
               <div className="flex-1 space-y-3 mb-6">
