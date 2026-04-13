@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils"
 import { pricingTiers, pricingHeader } from "@/content/pricing"
 import Link from "next/link"
 import confetti from 'canvas-confetti'
-import AnimatedNumbers from "react-animated-numbers"
 
 // Helper component for animated price display
 function AnimatedPrice({ 
@@ -19,17 +18,9 @@ function AnimatedPrice({
   price: string
   billingCycle: "monthly" | "6month" | "yearly"
 }) {
-  // Handle "Free" case
-  if (price === "Free") {
-    return (
-      <span className="text-4xl font-extrabold tracking-tight text-foreground">
-        Free
-      </span>
-    )
-  }
-
   // Extract numeric value from price string (e.g., "8,999 ETB" -> 8999)
-  const numericValue = parseInt(price.replace(/[^0-9]/g, ''), 10)
+  const isFree = price === "Free"
+  const numericValue = isFree ? 0 : parseInt(price.replace(/[^0-9]/g, ''), 10)
   const [currentValue, setCurrentValue] = React.useState(numericValue)
   const [previousValue, setPreviousValue] = React.useState(numericValue)
   const suffix = price.includes("ETB") ? " ETB" : ""
@@ -41,6 +32,8 @@ function AnimatedPrice({
 
   // Animate counting when price changes
   React.useEffect(() => {
+    if (isFree) return
+    
     setPreviousValue(currentValue)
     const targetValue = numericValue
     const diff = targetValue - currentValue
@@ -74,7 +67,16 @@ function AnimatedPrice({
     }
     
     requestAnimationFrame(animate)
-  }, [numericValue])
+  }, [numericValue, isFree, currentValue])
+
+  // Handle "Free" case
+  if (isFree) {
+    return (
+      <span className="text-4xl font-extrabold tracking-tight text-foreground">
+        Free
+      </span>
+    )
+  }
 
   const currentDigits = formatNumber(currentValue)
   const previousDigits = formatNumber(previousValue)

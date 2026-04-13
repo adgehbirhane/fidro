@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { Logo } from "@/components/shared/logo"
 
 export default function Loading() {
   return (
